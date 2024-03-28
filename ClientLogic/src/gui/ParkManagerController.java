@@ -61,18 +61,27 @@ public class ParkManagerController {
 			arrmsg.add(new String("ParkCurrentParamsGet"));
 			arrmsg.add(new String("String"));
 			arrmsg.add(new String(parkName));
-			ClientUI.chat.accept(arrmsg);
+			/////////OPEN////////////
+			///ClientUI.chat.accept(arrmsg);
+			
+			
+			/////////CHECK////////////////
+			ChatClient.dataFromServer = new ArrayList<String>();
+			ChatClient.dataFromServer.add(new String("15"));
+			ChatClient.dataFromServer.add(new String("19"));
+			ChatClient.dataFromServer.add(new String("3"));
+			ChatClient.dataFromServer.add(new String("6"));
 
 			if (ChatClient.dataFromServer.equals(null))
 				throw new NullPointerException("This park doesn't exists.");
-			arrmsg.clear();
-			arrmsg.add(ChatClient.dataFromServer);
-			txtCapacity.setText((String) arrmsg.get(0));
-			txtGapInPark.setText((String) arrmsg.get(1));
+
+			this.txtCapacity.setText(ChatClient.dataFromServer.get(0));
+			this.txtGapInPark.setText(ChatClient.dataFromServer.get(1));
 			// time of stay change no need for close time
-			txtTimeOfstay.setText((String) arrmsg.get(2));
-			Integer spaceInPark = ((Integer) arrmsg.get(1)) - ((Integer) arrmsg.get(4));
-			availableSpaceTxt.setText(spaceInPark.toString());
+			this.txtTimeOfstay.setText(ChatClient.dataFromServer.get(2));	
+			Integer spaceInPark = (Integer.parseInt(ChatClient.dataFromServer.get(0)) - Integer.parseInt(ChatClient.dataFromServer.get(3)));
+			this.availableSpaceTxt.setText(Integer.toString(spaceInPark));
+			
 
 		} catch (Exception e) {
 			System.out.println("Error in ParkManagerController: loadData");
@@ -111,11 +120,19 @@ public class ParkManagerController {
 			arrmsg.add(new String("AvilableSpaceGet"));
 			arrmsg.add(new String("String"));
 			arrmsg.add(new String(parkName));
-			ClientUI.chat.accept(arrmsg);
+			///////////OPEN//////////////
+			//ClientUI.chat.accept(arrmsg);
+			
+			//////////CHECK/////////
+			ChatClient.dataFromServer = new ArrayList<String>();
+			ChatClient.dataFromServer.add(new String("15"));
+			ChatClient.dataFromServer.add(new String("5"));
+			
 			if (ChatClient.dataFromServer.equals(null))
 				throw new NullPointerException("This park doesn't exists.");
-			Integer spaceInPark = ((Integer) arrmsg.get(1)) - ((Integer) arrmsg.get(4));
-			availableSpaceTxt.setText(spaceInPark.toString());
+			
+			Integer spaceInPark = (Integer.parseInt(ChatClient.dataFromServer.get(0)) - Integer.parseInt(ChatClient.dataFromServer.get(1)));
+			availableSpaceTxt.setText(Integer.toString(spaceInPark));
 		} catch (Exception e) {
 			System.out.println("Error in ParkManagerController: pressRefreshbtn");
 			System.out.println(e.getMessage());
@@ -177,11 +194,22 @@ public class ParkManagerController {
 				updatePark.add(new String(txtGapInPark.getText()));
 				updatePark.add(new String(txtTimeOfstay.getText()));
 				arrmsg.add(updatePark);
-
-				ClientUI.chat.accept(arrmsg);
-				if (ChatClient.dataFromServer.equals(false))
+				////////////OPEN////////////////
+				//ClientUI.chat.accept(arrmsg);
+				
+				/////////CHECK////////////
+				ChatClient.result = true;
+				
+				
+				if (ChatClient.result == false)
 					throw new NullPointerException("Update manager doesn't succesful.");
-			} catch (Exception e) {
+				else
+					this.lblErrorMsg.setText("Approved successfully!");
+			}catch (NullPointerException e) {
+				this.lblErrorMsg.setText(e.getMessage());
+			}catch (IllegalArgumentException e) {
+				this.lblErrorMsg.setText(e.getMessage());
+			}catch (Exception e) {
 				System.out.println("Error in ParkManagerController: pressSentTomanager");
 				System.out.println(e.getMessage());
 			}

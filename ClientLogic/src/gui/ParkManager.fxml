@@ -48,9 +48,7 @@
       <Text fx:id="availableSpaceTxt" layoutX="260.0" layoutY="309.0" stroke="#a16666" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="200.0" />
       <Button fx:id="btnCreateReports" layoutX="234.0" layoutY="343.0" mnemonicParsing="false" onAction="#pressCreateReports" text="Create Reports" />
       <TextField fx:id="txtTimeOfstay" layoutX="260.0" layoutY="241.0" prefHeight="25.0" prefWidth="200.0" promptText="Time of stay in minutes*" />
-      <Label fx:id="lblErrorMsg" layoutX="151.0" layoutY="126.0" prefHeight="18.0" prefWidth="246.0" textFill="#1e5d38" />
-      <Label fx:id="lblErrorMsg1" layoutX="151.0" layoutY="117.0" prefHeight="18.0" prefWidth="246.0" textFill="#1e5d38" />
-      <Label fx:id="lblErrorMsg11" layoutX="151.0" layoutY="108.0" prefHeight="18.0" prefWidth="246.0" textFill="#1e5d38" />
+      <Label fx:id="lblErrorMsg" layoutX="201.0" layoutY="111.0" prefHeight="18.0" prefWidth="246.0" textFill="RED" />
       <Label layoutX="115.0" layoutY="390.0" text="* Time need to be in minutes: &quot;120 means 2 hours&quot;" textFill="#1e5d38" />
       <Text fill="#1e5d38" layoutX="60.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For any technical question contact us by email: helpdesk@gonature.co.il" />
    </children>

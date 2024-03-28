@@ -37,11 +37,6 @@ public class CancellationReportController implements Initializable{
     private Text txtError;
 
     @FXML
-    private Text txtMonth;
-
-    @FXML
-    private Text txtYear;
-    @FXML
     private Text txtAvFully;
 
     @FXML
@@ -53,6 +48,7 @@ public class CancellationReportController implements Initializable{
     
     //load report data
     public void loadData(ArrayList<String> dataForReport) {
+    	this.dataForReport = dataForReport;;
     	/////////OPEN///////////////////
     	//this.dataForReport = dataForReport;
     	
@@ -97,6 +93,31 @@ public class CancellationReportController implements Initializable{
     		day2.add(7);
     		array.add(day2);
     		
+    		ArrayList<Integer> day3 = new ArrayList<>();
+    		day3.add(14);
+    		day3.add(6);
+    		array.add(day3);
+    		
+    		ArrayList<Integer> day4 = new ArrayList<>();
+    		day4.add(3);
+    		day4.add(7);
+    		array.add(day4);
+    		
+    		ArrayList<Integer> day5 = new ArrayList<>();
+    		day5.add(14);
+    		day5.add(6);
+    		array.add(day5);
+    		
+    		ArrayList<Integer> day6 = new ArrayList<>();
+    		day6.add(3);
+    		day6.add(7);
+    		array.add(day6);
+    		
+    		ArrayList<Integer> day7 = new ArrayList<>();
+    		day7.add(3);
+    		day7.add(7);
+    		array.add(day7);
+    		
 			//calculate the difference between the dates
 	        String date1String = new String(dataForReport.get(3)+"-"+dataForReport.get(2)+"-"+dataForReport.get(1)); // First date in YYYY-MM-DD format
 	        String date2String = new String(dataForReport.get(6)+"-"+dataForReport.get(5)+"-"+dataForReport.get(4)); // Second date in YYYY-MM-DD format
@@ -127,7 +148,7 @@ public class CancellationReportController implements Initializable{
 	        	 // Iterate over the dates
 	        	LocalDate currentDate = date1;
 	        	while (!currentDate.isAfter(date2)) {
-	        		dataSeries1.getData().add(new XYChart.Data<>(currentDate.toString(), array.get(i).get(1)));
+	        		dataSeries2.getData().add(new XYChart.Data<>(currentDate.toString(), array.get(i).get(1)));
 	        		currentDate = currentDate.plusDays(1); // Move to the next day
 	        	}
 	        }

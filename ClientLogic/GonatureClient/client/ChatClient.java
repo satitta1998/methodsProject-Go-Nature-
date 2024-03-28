@@ -4,6 +4,7 @@ import ocsf.client.*;
 import client.*;
 import common.ChatIF;
 import entity.Order;
+import entity.SecondPage;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -198,6 +199,55 @@ public class ChatClient extends AbstractClient {
 						break;}
 					
 					case "EnterWaitList": {
+						pay_load_from_srv_str = (String) arr.get(2);
+						dataFromServer = new ArrayList<>();
+						dataFromServer.add(pay_load_from_srv_str);
+						break;}
+					
+					case "ParkCurrentParamsGet": {
+						pay_load_from_srv_arr_lst = (ArrayList<String>) arr.get(2);
+						dataFromServer = pay_load_from_srv_arr_lst;
+						break;}
+					
+					case "ParkCurrentParamsUpdate": {
+						pay_load_from_srv_bln = (Boolean) arr.get(2);
+						caseDecision(pay_load_from_srv_bln, "Park current parameters updated successfully ", "Park current parameters not updated successfully");
+						break;}
+					
+					case "ParkNewParamsGet": {
+						pay_load_from_srv_arr_lst = (ArrayList<String>) arr.get(2);
+						dataFromServer = pay_load_from_srv_arr_lst;
+						break;}
+					
+					case "ParkNewParamsUpdate": {
+						pay_load_from_srv_bln = (Boolean) arr.get(2);
+						caseDecision(pay_load_from_srv_bln, "Park new parameters updated successfully ", "Park new parameters not updated successfully");
+						break;}
+					
+					case "ParkCheckIfApproveRequired": {
+						pay_load_from_srv_bln = (Boolean) arr.get(2);
+						caseDecision(pay_load_from_srv_bln, "Approve required", "Approve not required");
+						break;}
+					
+					case "AvilableSpaceGet": {
+						pay_load_from_srv_arr_lst = (ArrayList<String>) arr.get(2);
+						dataFromServer = pay_load_from_srv_arr_lst;
+						break;}	
+					
+					case "OrderApprove": {
+						pay_load_from_srv_bln = (Boolean) arr.get(2);
+						caseDecision(pay_load_from_srv_bln, "Order apporoved", "Order wasn't approved");
+						break;}
+					
+					case "SMS_OrderReminder": {
+						pay_load_from_srv_str = (String) arr.get(2);
+						if(!pay_load_from_srv_str.equals("null")) {
+	    		        	SecondPage page = new SecondPage("/gui/SMSWindow.fxml", "", "SMSController", "", pay_load_from_srv_str); 
+	    		        	page.openSecondPage();
+						}       	
+						break;}
+					
+					case "SMS_OrderCanceled": {
 						pay_load_from_srv_str = (String) arr.get(2);
 						dataFromServer = new ArrayList<>();
 						dataFromServer.add(pay_load_from_srv_str);

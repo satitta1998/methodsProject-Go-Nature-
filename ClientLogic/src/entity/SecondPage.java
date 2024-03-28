@@ -1,6 +1,7 @@
 package entity;
 
 import gui.InvoiceController;
+import gui.SMSController;
 import gui.TotalVisitorsNumberReportPageController;
 import gui.UsageReportPageController;
 import gui.VisitingReportController;
@@ -34,6 +35,14 @@ public class SecondPage {
 	
 	public SecondPage(ActionEvent event, String path, String title, String controller, String method, Object data) {
 		this.event = event; 
+		this.path = path;
+		this.title = title;
+		this.controller = controller;
+		this.method = method;
+		this.data = data;
+	}
+	
+	public SecondPage(String path, String title, String controller, String method, Object data) {
 		this.path = path;
 		this.title = title;
 		this.controller = controller;
@@ -77,6 +86,11 @@ public class SecondPage {
 				case "CancellationReportController": {
 					CancellationReportController cancellationReportController = secondLoader.getController();
 					cancellationReportController.loadData((ArrayList<String>)data);
+					break;}
+				
+				case "SMSController": {
+					SMSController smsController = secondLoader.getController();
+					smsController.loadSMS((String)data);
 					break;}
 			}
 			

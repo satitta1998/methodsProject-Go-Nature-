@@ -39,11 +39,7 @@ public class VisitingReportController implements Initializable{
     private NumberAxis Y;
     
     @FXML
-    private Text txtMonth;
-
-    @FXML
-    private Text txtYear;
-    
+    private Text txtMonth, txtYear, txtDay;
     
     private ArrayList<String> dataForReport;
     //data report = {0 - parkName, 1 - day, 2 - month, 3 - year}
@@ -52,6 +48,9 @@ public class VisitingReportController implements Initializable{
     public void loadData(ArrayList<String> dataForReport) {
     	/////////CREATE///////////////////
     	this.dataForReport = dataForReport;
+    	this.txtDay.setText(dataForReport.get(1));
+		this.txtMonth.setText(dataForReport.get(2));
+		this.txtYear.setText(dataForReport.get(3));
     }
     
     @Override
