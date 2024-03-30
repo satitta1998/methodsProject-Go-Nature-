@@ -39,30 +39,46 @@ public class TotalVisitorsNumberReportPageController {
     @FXML
     private Text txtYear;
     
+    @FXML
+    private Text txtError;
+
+    
     private ArrayList<String> dataForReport;
     //data report = {0 - parkName, 1 - month, 2 - year
     
     //load report data
     public void loadData(ArrayList<String> dataForReport) {
     	try {
-			this.dataForReport = dataForReport;
-			this.txtMonth.setText(dataForReport.get(1));
-			this.txtYear.setText(dataForReport.get(2));
+			//this.dataForReport = dataForReport;
+			//this.txtMonth.setText(dataForReport.get(1));
+			//this.txtYear.setText(dataForReport.get(2));
+    		
+    		//create order
+			ArrayList<Object> arrmsg = new ArrayList<Object>();
+			arrmsg.add(new String("CreateVisitorsNumReport"));
+			arrmsg.add(new String("String"));
+			arrmsg.add(dataForReport.get(0));
+			ClientUI.chat.accept(arrmsg);
 			
+			if(ChatClient.result == false)
+				throw new NullPointerException("No report created");
 			
+			this.txtError.setText("Report created successfully");
+
 			//get dates from DB
-			/*ArrayList<String> dataForRep = new ArrayList<String>();
+			ArrayList<String> dataForRep = new ArrayList<String>();
 			dataForRep.add(dataForReport.get(0)); //parkName
 			dataForRep.add(dataForReport.get(1)); //month
 			dataForRep.add(dataForReport.get(2)); //year
 			
-			ArrayList<Object> arrmsg = new ArrayList<Object>();
-			arrmsg.add(new String("GetDatesUsageReport"));
+			arrmsg = new ArrayList<Object>();
+			arrmsg.add(new String("GetVisitorsNumReport"));
 			arrmsg.add(new String("ArrayList<String>"));
-			arrmsg.add(new String("Get"));
-			ClientUI.chat.accept(dataForRep);
+			arrmsg.add(dataForRep);
+			ClientUI.chat.accept(arrmsg);
 			
-			if(ChatClient.dataFromServer.get(0).equals("null"))*/
+			if(ChatClient.dataFromServer.get(0).equals("null"))
+				throw new NullPointerException("No report returned from DB");
 
 			//CHECK: NEED TO MAKE THE REAL CODE
 			ObservableList<ReportData> reportData = FXCollections.observableArrayList();
@@ -70,7 +86,10 @@ public class TotalVisitorsNumberReportPageController {
 			this.loadTableData(reportData);
 			
 			
-		} catch (Exception e) {
+		}catch(NullPointerException e) {
+			this.txtError.setText(e.getMessage());
+		}
+    	catch (Exception e) {
 			System.out.println("Error in TotalVisitorsNumberReportPageController: loadData");
 			System.out.println(e.getMessage());
 		}	

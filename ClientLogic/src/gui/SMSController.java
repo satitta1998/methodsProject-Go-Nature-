@@ -1,6 +1,9 @@
 package gui;
 
+import java.util.ArrayList;
+
 import client.ChatClient;
+import client.ClientUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,12 +11,19 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SMSController {
+	
+	public enum Action {
+		REMIND, CANCEL
+	}
 
     @FXML
     private Button btnApprove;
 
     @FXML
     private Button btnClose;
+    
+    @FXML
+    private Button btnCancel;
 
     @FXML
     private Text txtMsg;
@@ -21,14 +31,25 @@ public class SMSController {
     @FXML
     private Text txtResult;
     
-    public void loadSMS(String sms) {
+    private String orderID;
+    
+    public void loadSMS(ArrayList<String> smsMsg) {
     	try {
     		
-    		if(sms.equals("null"))
+    		//smsMsg {0- Action, 1 - OrderID, 2 - msg}
+    		   		
+    		if(smsMsg.equals("null"))
     			throw new NullPointerException("No message");
 
-    		
-    		this.txtMsg.setText(sms);
+    		if(smsMsg.get(0).equals(Action.CANCEL.toString())) {
+    			this.btnApprove.setVisible(false);
+    			this.btnCancel.setVisible(false);
+    		}
+    			
+    		//get order ID
+    		this.orderID = smsMsg.get(1);
+    		//set message
+    		this.txtMsg.setText(smsMsg.get(2));
     		
     	}catch (Exception e) {
     		System.out.println("Error in SMSController: loadSMS");
@@ -39,7 +60,49 @@ public class SMSController {
     //Event for "Approve" button
     @FXML
     void pressApproveBtn(ActionEvent event) {
-    	///////////////
+   	
+		try {
+			ArrayList<Object> arrmsg = new ArrayList<Object>();
+			arrmsg.add(new String("OrderApprove"));
+			arrmsg.add(new String("String"));
+			arrmsg.add(orderID);
+			ClientUI.chat.accept(arrmsg);
+			
+			if(ChatClient.result == true)
+				this.txtMsg.setText("Order approved successfully");
+			else
+				this.txtMsg.setText("Order wasn't approved");
+			
+			//hide cancel button
+			this.btnApprove.setVisible(false);
+			this.btnCancel.setVisible(false);
+		} catch (Exception e) {
+			System.out.println("Error in SMSController: pressApproveBtn");
+			System.out.println(e.getMessage());
+		}
+    }
+    
+    @FXML
+    void pressCancelBtn(ActionEvent event) {
+    	try {
+			ArrayList<Object> arrmsg = new ArrayList<Object>();
+			arrmsg.add(new String("OrderCancel"));
+			arrmsg.add(new String("String"));
+			arrmsg.add(orderID);
+			ClientUI.chat.accept(arrmsg);
+			
+			if(ChatClient.result == true)
+				this.txtMsg.setText("Order cancelled");
+			else
+				this.txtMsg.setText("Order wasn't cancelled");
+			
+			//hide button
+			this.btnApprove.setVisible(false);
+			this.btnCancel.setVisible(false);
+    	}catch (Exception e) {
+    		System.out.println("Error in SMSController: pressCancelBtn");
+    		System.out.println(e.getMessage());
+    	}
     }
     
 

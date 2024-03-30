@@ -46,7 +46,7 @@ public class ParkWorkerMenuController {
 	    private Label lblEnteredOrderNum, lblResult;    
 
 	    @FXML
-	    private TextField txtEnteredOrderNum, txtEnteredVisitorsNum, txtExitRegNumber;
+	    private TextField txtEnteredOrderNum, txtEnteredVisitorsNum, txtExitRegNumber, txtEnteredVisitorID;
 	    
 	    @FXML
 	    private Text txtEmail, txtNumberOfVisitors, txtOrderNum, txtParkName, txtPhoneNum, txtTimeOfVisit;
@@ -86,7 +86,7 @@ public class ParkWorkerMenuController {
 	                	isGotInvoice = false;
 
 	                    // Set up a loop to clear the content of each text field
-	                    for (TextField textField : new TextField[]{txtEnteredOrderNum, txtEnteredVisitorsNum, txtExitRegNumber}) {
+	                    for (TextField textField : new TextField[]{txtEnteredOrderNum, txtEnteredVisitorsNum, txtExitRegNumber, txtEnteredVisitorID}) {
 	                        textField.clear(); // Clear the content of the text field
 	                    }
 	                    
@@ -150,25 +150,27 @@ public class ParkWorkerMenuController {
 	    			errorCaseUnplanned("You have tried to enter the park before getting invoce.", "You should get invoce first.");
 	    		else {
 		    		String visitorNum = this.txtEnteredVisitorsNum.getText();
+		    		String visitorID = this.txtEnteredVisitorID.getText();
 		    		
-		    		if(visitorNum.trim().isEmpty()) {
-		    			errorCaseUnplanned("String for number of visitors is empty","You must enter a number of visitors.");
+		    		if((visitorNum.trim().isEmpty()) || (visitorID.trim().isEmpty())) {
+		    			errorCaseUnplanned("String is empty","You must enter a number and ID of one of the visitors.");
 		    		}else {
-			    		if(!parkName.equals(this.txtParkName.getText()))
-			    			throw new IllegalArgumentException("You can't deal with not your park orders.");
+
 		    			
 		    			// Check if the string contains any digit
 				        Pattern pattern = Pattern.compile("\\d");
-				        Matcher matcher = pattern.matcher(visitorNum);
-				        if (!matcher.find())
-				            throw new IllegalArgumentException("Number of visitors should contain only numbers");
+				        Matcher matcherNum = pattern.matcher(visitorNum);
+				        Matcher matcherID = pattern.matcher(visitorID);
+				        if ((!matcherNum.find()) || (!matcherID.find()))
+				            throw new IllegalArgumentException("Number of visitors and ID should contain only numbers");
 				        
-				        if (Integer.parseInt(visitorNum) < 1)
-				        	throw new IllegalArgumentException("The number of visitors should be greater then 0");
+				        if ( (Integer.parseInt(visitorNum) < 1) || (Integer.parseInt(visitorID) < 1))
+				        	throw new IllegalArgumentException("The number of visitors and ID should be greater then 0");
 				        
 			    		ArrayList<String> arrEnterPark = new ArrayList<>();
 			    		arrEnterPark.add(this.parkName);
 			    		arrEnterPark.add(visitorNum);
+			    		arrEnterPark.add(visitorID);
 			    		
 						ArrayList<Object> arrmsg = new ArrayList<Object>();
 						arrmsg.add(new String("UnplannedEnter"));
@@ -304,17 +306,19 @@ public class ParkWorkerMenuController {
 
 	    		//1. Check the number of visitors
 	    		String visitorNum = this.txtEnteredVisitorsNum.getText();
-	    		if(visitorNum.trim().isEmpty()) {
-	    			errorCaseUnplanned("String for number of visitors is empty","You must enter a number of visitors.");
+	    		String visitorID = this.txtEnteredVisitorID.getText();
+	    		if((visitorNum.trim().isEmpty()) || (visitorID.trim().isEmpty())) {
+	    			errorCaseUnplanned("String for number of visitors or ID is empty","You must enter a number of visitors and ID.");
 	    		}else {
 	    			// Check if the string contains any digit
 			        Pattern pattern = Pattern.compile("\\d");
-			        Matcher matcher = pattern.matcher(visitorNum);
-			        if (!matcher.find())
-			            throw new IllegalArgumentException("Number of visitors should contain only numbers");
+			        Matcher matcherNum = pattern.matcher(visitorNum);
+			        Matcher matcherID = pattern.matcher(visitorID);
+			        if ((!matcherNum.find()) || (!matcherID.find()))
+			            throw new IllegalArgumentException("Number of visitors and ID should contain only numbers");
 			        
-			        if (Integer.parseInt(visitorNum) < 1)
-			        	throw new IllegalArgumentException("Number of visitors should be greater then 0");
+			        if ( (Integer.parseInt(visitorNum) < 1) || (Integer.parseInt(visitorID) < 1))
+			        	throw new IllegalArgumentException("Number of visitors and ID should be greater then 0");
 
 		    		//2. Check checkbox if guided group or private visit
 		    		if(this.ckbGuidedGroup.isSelected()) {
@@ -362,26 +366,26 @@ public class ParkWorkerMenuController {
 	    @FXML
 	    void pressPerformExitRegistration(ActionEvent event) {
 	    	try {
-	    		String exitVisitorsNum = this.txtExitRegNumber.getText();
+	    		String exitRegNum = this.txtExitRegNumber.getText();
 	    		
-	    		if(exitVisitorsNum.trim().isEmpty()) {
-	    			errorCaseExit("String number of visitors for exit registration is empty","You must enter a number of visitors for exit registration.");
+	    		if(exitRegNum.trim().isEmpty()) {
+	    			errorCaseExit("String visitors' ID for exit registration is empty","You must enter a visitors' ID for exit registration.");
 	    		}else {
 	    			// Check if the string contains any digit
 			        Pattern pattern = Pattern.compile("\\d");
-			        Matcher matcher = pattern.matcher(exitVisitorsNum);
+			        Matcher matcher = pattern.matcher(exitRegNum);
 			        if (!matcher.find())
 			            throw new IllegalArgumentException();
 			        
-			        if (Integer.parseInt(exitVisitorsNum) < 1)
-			        	errorCaseExit("The number of visitors should be greater then 0","The number of visitors should be greater then 0");
+			        if (Integer.parseInt(exitRegNum) < 1)
+			        	errorCaseExit("The the visitors' ID should be greater then 0","The the visitors' ID should be greater then 0");
 			        else {
 			        	
 			        	ArrayList<String> exitRegMsg = new ArrayList<>();
 			        	exitRegMsg.add(this.parkName);
-			        	exitRegMsg.add(exitVisitorsNum);
+			        	exitRegMsg.add(exitRegNum);
 			        	
-						//send the number of visitors for performing an exit registration
+						//send the data for performing an exit registration
 						ArrayList<Object> arrmsg = new ArrayList<Object>();
 						arrmsg.add(new String("ExitRegistration"));
 						arrmsg.add(new String("ArrayList<String>"));
@@ -397,7 +401,7 @@ public class ParkWorkerMenuController {
 			        }
 	    		}
 	    	}catch (IllegalArgumentException e) {
-	    		errorCaseExit("String does not contain numbers.","The number of visitors should contain only numbers.");
+	    		errorCaseExit("String does not contain numbers.","The visitors' ID should contain only numbers.");
 	    	}catch (Exception e) {
 	    		System.out.println("Error in ParkWorkerMenuController: pressPerformExitRegistration");
 	    		System.out.println(e.getMessage());

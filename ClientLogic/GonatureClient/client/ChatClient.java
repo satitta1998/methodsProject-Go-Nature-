@@ -5,6 +5,7 @@ import client.*;
 import common.ChatIF;
 import entity.Order;
 import entity.SecondPage;
+import gui.SMSController;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -240,19 +241,85 @@ public class ChatClient extends AbstractClient {
 						break;}
 					
 					case "SMS_OrderReminder": {
-						pay_load_from_srv_str = (String) arr.get(2);
-						if(!pay_load_from_srv_str.equals("null")) {
-	    		        	SecondPage page = new SecondPage("/gui/SMSWindow.fxml", "", "SMSController", "", pay_load_from_srv_str); 
+						pay_load_from_srv_arr_lst = (ArrayList<String>) arr.get(2);
+						dataFromServer = new ArrayList<String>();
+						dataFromServer.add(SMSController.Action.REMIND.toString());
+						dataFromServer.add(pay_load_from_srv_arr_lst.get(0)); //set order ID
+						dataFromServer.add(pay_load_from_srv_arr_lst.get(1)); //set msg
+						if(!dataFromServer.get(0).equals("null")) {
+	    		        	SecondPage page = new SecondPage("/gui/SMSWindow.fxml", "", "SMSController", "", dataFromServer); 
 	    		        	page.openSecondPage();
-						}       	
+						}
 						break;}
 					
 					case "SMS_OrderCanceled": {
-						pay_load_from_srv_str = (String) arr.get(2);
-						dataFromServer = new ArrayList<>();
-						dataFromServer.add(pay_load_from_srv_str);
+						pay_load_from_srv_arr_lst = (ArrayList<String>) arr.get(2);
+						dataFromServer = new ArrayList<String>();
+						dataFromServer.add(SMSController.Action.CANCEL.toString());
+						dataFromServer.add(pay_load_from_srv_arr_lst.get(0)); //set order ID
+						dataFromServer.add(pay_load_from_srv_arr_lst.get(1)); //set msg
+						if(!dataFromServer.get(0).equals("null")) {
+	    		        	SecondPage page = new SecondPage("/gui/SMSWindow.fxml", "", "SMSController", "", dataFromServer); 
+	    		        	page.openSecondPage();
+						}
 						break;}
 					
+					case "CreateVisitorsNumReport": {
+						pay_load_from_srv_bln = (Boolean) arr.get(2);
+						caseDecision(pay_load_from_srv_bln, "CreateVisitorsNumReport created", "CreateVisitorsNumReport wasn't created");
+						break;}
+					
+					case "GetVisitorsNumReport": {
+						pay_load_from_srv_arr_lst = (ArrayList<String>) arr.get(2);
+						dataFromServer = pay_load_from_srv_arr_lst;
+						break;}
+					
+					case "CreateDatesUsageReport": {
+						pay_load_from_srv_bln = (Boolean) arr.get(2);
+						caseDecision(pay_load_from_srv_bln, "CreateDatesUsageReport created", "CreateDatesUsageReport wasn't created");
+						break;}
+					
+					case "GetDatesUsageReport": {
+						pay_load_from_srv_arr_lst = (ArrayList<String>) arr.get(2);
+						dataFromServer = pay_load_from_srv_arr_lst;
+						break;}
+					
+					case "CreateVisitsReport": {
+						pay_load_from_srv_bln = (Boolean) arr.get(2);
+						caseDecision(pay_load_from_srv_bln, "CreateVisitsReport created", "CreateVisitsReport wasn't created");
+						break;}
+					
+					case "ShowVisitsReport": {
+						switch (paylod_type_from_server) {
+						case "String": {
+							pay_load_from_srv_str = (String) arr.get(2);
+							dataFromServer = new ArrayList<>();
+							dataFromServer.add(pay_load_from_srv_str);
+							result = false;
+							break;}
+						case "ArrayList<ArrayList<Integer>>": {
+							intDataFromServer = (ArrayList<ArrayList<Integer>>) arr.get(2);
+							result = true;
+							break;}
+						}
+						break;}
+					
+					case "ShowCancellationReport": {
+						switch (paylod_type_from_server) {
+						case "String": {
+							pay_load_from_srv_str = (String) arr.get(2);
+							dataFromServer = new ArrayList<>();
+							dataFromServer.add(pay_load_from_srv_str);
+							result = false;
+							break;}
+						case "ArrayList<ArrayList<Integer>>": {
+							intDataFromServer = (ArrayList<ArrayList<Integer>>) arr.get(2);
+							result = true;
+							break;}
+						}
+						break;}
+					
+
 
 				}
 				

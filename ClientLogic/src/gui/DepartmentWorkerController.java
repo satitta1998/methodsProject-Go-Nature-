@@ -19,10 +19,7 @@ public class DepartmentWorkerController {
 
 	@FXML
 	private TextField guide_id;
-
-	@FXML
-	private Button btnBack;
-
+	
 	@FXML
 	private Button btnGuideReg;
 
@@ -70,30 +67,28 @@ public class DepartmentWorkerController {
 }
 
 	@FXML
-	void pressLogoutBtn(ActionEvent event) { //// NEED TO ADD LOGOUT
-    	try {
-    		///////////ENTER LOG OUT REQUEST////////////
-    		
-        	NextPage page = new NextPage(event, "/gui/Login.fxml", "Login Page", "LoginController", "pressLogoutBtn"); 
-        	page.Next();
-    	}catch (Exception e) {
-    		System.out.println("Error in ParkWorkerMenuController: pressLogOut");
-    		System.out.println(e.getMessage());
-    	}
+	void pressLogoutBtn(ActionEvent event) { 
+		try {
+			ArrayList<Object> arrmsg = new ArrayList<Object>();
+			arrmsg.add(new String("UserLogOut"));
+			arrmsg.add(new String("String"));
+			arrmsg.add(ChatClient.userName);
+			ClientUI.chat.accept(arrmsg);
+
+			if (ChatClient.result == true) {
+				ChatClient.userName = "";
+	        	NextPage page = new NextPage(event, "/gui/Login.fxml", "Login Page", "LoginController", "pressLogoutBtn"); 
+	        	page.Next();
+			} else {
+				this.errorTxt.setText("The user wasn't logged out");
+
+			}
+		} catch (Exception e) {
+			System.out.println("Error in ParkManagerController: pressLogOut");
+			System.out.println(e.getMessage());
+		}
 	}
 
-	// Event for "Back" button
-//	public void pressBackBtn(ActionEvent event) throws Exception {
-//		try {
-//			NextPage page = new NextPage(event, "/gui/TravellerPage.fxml", "Traveller Page", "TravellerPageController",
-//					"pressBackBtn"); // need to add path and title
-//			page.Next();
-//		} catch (Exception e) {
-//			System.out.println("Error in FindOrderFrameController: pressBackBtn");
-//			System.out.println(e.getMessage());
-//		}
-//
-//	}
 
 	// private method for messages
 	private void msgCase(String strPrint, String strSet) {

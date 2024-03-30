@@ -128,28 +128,34 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Label layoutX="37.0" layoutY="46.0" text="Enter the number of visitors:" textFill="#1e5d38">
+                        <Label layoutX="37.0" layoutY="113.0" text="Enter the number of visitors:" textFill="#1e5d38">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtEnteredVisitorsNum" alignment="CENTER" layoutX="255.0" layoutY="46.0" prefHeight="25.0" prefWidth="180.0" promptText="number of visitors" />
+                        <TextField fx:id="txtEnteredVisitorsNum" alignment="CENTER" layoutX="262.0" layoutY="113.0" prefHeight="25.0" prefWidth="180.0" promptText="number of visitors" />
                         <Button fx:id="btnGetInvoiceUnplanned" layoutX="93.0" layoutY="326.0" mnemonicParsing="false" onAction="#pessGetInvoiceUnplanned" prefHeight="30.0" prefWidth="288.0" text="Get invoice">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
                         <Text fx:id="txtErrorUnplanned" fill="RED" layoutX="88.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="296.13671875" />
-                        <CheckBox fx:id="ckbPrivateFamVisit" layoutX="237.0" layoutY="119.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="189.0" text="Private or family visit" textFill="#1e5d38">
+                        <CheckBox fx:id="ckbPrivateFamVisit" layoutX="237.0" layoutY="179.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="189.0" text="Private or family visit" textFill="#1e5d38">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="ckbGuidedGroup" layoutX="46.0" layoutY="120.0" mnemonicParsing="false" text="Guided group" textFill="#1e5d38">
+                        <CheckBox fx:id="ckbGuidedGroup" layoutX="46.0" layoutY="180.0" mnemonicParsing="false" text="Guided group" textFill="#1e5d38">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </CheckBox>
+                        <Label layoutX="13.0" layoutY="47.0" prefHeight="25.0" prefWidth="242.0" text="Enter the ID of one of the visitors:" textFill="#1e5d38">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtEnteredVisitorID" alignment="CENTER" layoutX="262.0" layoutY="47.0" prefHeight="25.0" prefWidth="180.0" promptText="ID" />
                      </children>
                   </AnchorPane>
             </content>
@@ -158,12 +164,12 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER" layoutX="74.0" layoutY="54.0" prefHeight="27.0" prefWidth="324.0" text="Enter the number of visitors that want to exit:" textFill="#1e5d38">
+                        <Label alignment="CENTER" layoutX="74.0" layoutY="54.0" prefHeight="27.0" prefWidth="324.0" text="Enter your ID number:" textFill="#1e5d38">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtExitRegNumber" alignment="CENTER" layoutX="139.0" layoutY="116.0" prefHeight="25.0" prefWidth="195.0" promptText="number of visitors" />
+                        <TextField fx:id="txtExitRegNumber" alignment="CENTER" layoutX="139.0" layoutY="116.0" prefHeight="25.0" prefWidth="195.0" promptText="ID number" />
                         <Button fx:id="btnExitResitration" layoutX="93.0" layoutY="377.0" mnemonicParsing="false" onAction="#pressPerformExitRegistration" prefHeight="30.0" prefWidth="288.0" text="Perform exit registration">
                            <font>
                               <Font size="14.0" />

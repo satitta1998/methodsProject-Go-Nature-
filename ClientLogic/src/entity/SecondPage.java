@@ -8,7 +8,10 @@ import gui.VisitingReportController;
 import gui.CancellationReportController;
 import gui.ChoiceWindowController;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -52,58 +55,61 @@ public class SecondPage {
 	
 	//function for changing pages
 	public void openSecondPage() throws Exception {
-		try {
-			
-			FXMLLoader secondLoader = new FXMLLoader(getClass().getResource(path));
-			Pane secondRoot = secondLoader.load();
-			
-			switch (controller) {
-				case "InvoiceController": {
-					InvoiceController invoiceController = secondLoader.getController();
-					invoiceController.genarateInvoice((PriceGenerator)data);
-					break;}
+		Platform.runLater(() -> {
+			try {
+				FXMLLoader secondLoader = new FXMLLoader(getClass().getResource(path));
+				Pane secondRoot = secondLoader.load();
 				
-				case "ChoiceWindowController": {
-					ChoiceWindowController choiceWindowController = secondLoader.getController();
-					choiceWindowController.loadData((ArrayList<String>)data);
-					break;}
+				switch (controller) {
+					case "InvoiceController": {
+						InvoiceController invoiceController = secondLoader.getController();
+						invoiceController.genarateInvoice((PriceGenerator)data);
+						break;}
+					
+					case "ChoiceWindowController": {
+						ChoiceWindowController choiceWindowController = secondLoader.getController();
+						choiceWindowController.loadData((ArrayList<String>)data);
+						break;}
+					
+					case "TotalVisitorsNumberReportPageController": {
+						TotalVisitorsNumberReportPageController totalVisitorsNumberReportPageController = secondLoader.getController();
+						totalVisitorsNumberReportPageController.loadData((ArrayList<String>)data);
+						break;}
+					
+					case "UsageReportPageController": {
+						UsageReportPageController usageReportPageController = secondLoader.getController();
+						usageReportPageController.loadData((ArrayList<String>)data);
+						break;}
+					
+					case "VisitingReportController": {
+						VisitingReportController visitingReportController = secondLoader.getController();
+						visitingReportController.loadData((ArrayList<String>)data);
+						break;}
+					
+					case "CancellationReportController": {
+						CancellationReportController cancellationReportController = secondLoader.getController();
+						cancellationReportController.loadData((ArrayList<String>)data);
+						break;}
+					
+					case "SMSController": {
+						SMSController smsController = secondLoader.getController();
+						smsController.loadSMS((ArrayList<String>)data);
+						break;}
+				}
 				
-				case "TotalVisitorsNumberReportPageController": {
-					TotalVisitorsNumberReportPageController totalVisitorsNumberReportPageController = secondLoader.getController();
-					totalVisitorsNumberReportPageController.loadData((ArrayList<String>)data);
-					break;}
-				
-				case "UsageReportPageController": {
-					UsageReportPageController usageReportPageController = secondLoader.getController();
-					usageReportPageController.loadData((ArrayList<String>)data);
-					break;}
-				
-				case "VisitingReportController": {
-					VisitingReportController visitingReportController = secondLoader.getController();
-					visitingReportController.loadData((ArrayList<String>)data);
-					break;}
-				
-				case "CancellationReportController": {
-					CancellationReportController cancellationReportController = secondLoader.getController();
-					cancellationReportController.loadData((ArrayList<String>)data);
-					break;}
-				
-				case "SMSController": {
-					SMSController smsController = secondLoader.getController();
-					smsController.loadSMS((String)data);
-					break;}
-			}
-			
 
-	        Stage secondStage = new Stage();
-	        secondStage.setTitle(title);
-	        Scene secondScene = new Scene(secondRoot);
-	        secondStage.setScene(secondScene);
-	        secondStage.show();
-		}catch (Exception e) {
-			System.out.println("Error in SecondPage: openSecondPage");
-			System.out.println(e.getMessage());
-		}
+		        Stage secondStage = new Stage();
+		        secondStage.setTitle(title);
+		        Scene secondScene = new Scene(secondRoot);
+		        secondStage.setScene(secondScene);
+		        secondStage.show();
+			}catch (Exception e) {
+				System.out.println("Error in SecondPage: openSecondPage");
+				System.out.println(e.getMessage());
+			}
+		});
 	}
+	
+	
 
 }

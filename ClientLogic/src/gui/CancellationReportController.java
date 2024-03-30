@@ -1,16 +1,13 @@
 package gui;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import client.ChatClient;
 import client.ClientUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -20,7 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class CancellationReportController implements Initializable{
+public class CancellationReportController{
     @FXML
     private CategoryAxis X;
 
@@ -48,27 +45,11 @@ public class CancellationReportController implements Initializable{
     
     //load report data
     public void loadData(ArrayList<String> dataForReport) {
-    	this.dataForReport = dataForReport;;
-    	/////////OPEN///////////////////
-    	//this.dataForReport = dataForReport;
-    	
-    	////////////////CHECK///////////////////
-		this.dataForReport = new ArrayList<>();
-		this.dataForReport.add("Central Park");
-		this.dataForReport.add("01");
-		this.dataForReport.add("03");
-		this.dataForReport.add("2011");
-		this.dataForReport.add("07");
-		this.dataForReport.add("03");
-		this.dataForReport.add("2011");
-    }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
     	try {
+        	this.dataForReport = dataForReport;
     		
     		////////////////CHECK///////////////////
-    		dataForReport = new ArrayList<>();
+    		/*dataForReport = new ArrayList<>();
     		dataForReport.add("Central Park");
     		dataForReport.add("01");
     		dataForReport.add("03");
@@ -155,12 +136,11 @@ public class CancellationReportController implements Initializable{
     		
 	        //set the average to the label
 	        this.txtAvFully.setText(array.get(0).get(0).toString());
-	        this.txtAvNotFully.setText(array.get(0).get(1).toString());
+	        this.txtAvNotFully.setText(array.get(0).get(1).toString());*/
     		
-
     		
     		///////////////////REAL CODE//////////////////////
-    		/*if(dataForReport.get(0).equals("All parks")) {
+    		if(dataForReport.get(0).equals("All parks")) {
         		ArrayList<String> dataRep = new ArrayList<>();
         		dataRep.add(dataForReport.get(1)); //day_from
         		dataRep.add(dataForReport.get(2)); //month_from
@@ -233,7 +213,7 @@ public class CancellationReportController implements Initializable{
 	        
 	        //set the average to the label
 	        this.txtAvFully.setText(ChatClient.intDataFromServer.get(0).get(0).toString());
-	        this.txtAvNotFully.setText(ChatClient.intDataFromServer.get(0).get(1).toString());*/
+	        this.txtAvNotFully.setText(ChatClient.intDataFromServer.get(0).get(1).toString());
 		    //////////////END REAL CODE////////////////////////
     		
     		
@@ -242,16 +222,13 @@ public class CancellationReportController implements Initializable{
     	}catch(NullPointerException e) {
     		this.txtError.setText(e.getMessage());
     	}catch(Exception e) {
-    		System.out.println("Error in CancellationReportController: initialize");
+    		System.out.println("Error in CancellationReportController: loadData");
     		System.out.println(e.getMessage());
     	}
-    	
+
     }
-    
-    
-    
-    
-    
+  
+
     //Event for "Back" button
     @FXML
     void pressBack(ActionEvent event) {

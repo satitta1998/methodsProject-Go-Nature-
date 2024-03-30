@@ -41,7 +41,7 @@ public class ChoiceWindowController {
 			arrmsg.add(orderData);
 			ClientUI.chat.accept(arrmsg);
 			
-			if(ChatClient.dataFromServer.get(0).equals("-1")) {
+			if(ChatClient.dataFromServer.get(0).equals("couldnt find order id?")) {
 				this.txtResult.setText("Error in entering the waiting list. Please contact us: GoNature@parks.co.il");
 			}else {
 				//entered the waiting list successfully

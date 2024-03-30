@@ -49,5 +49,10 @@
             <Font size="15.0" />
          </font>
       </Text>
+      <Text fx:id="txtError" fill="RED" layoutX="32.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="396.13671875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

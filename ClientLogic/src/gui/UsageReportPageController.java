@@ -36,6 +36,9 @@ public class UsageReportPageController {
 
     @FXML
     private Text txtYear;
+
+    @FXML
+    private Text txtError;
     
     private ArrayList<String> reasons;
     
@@ -57,9 +60,20 @@ public class UsageReportPageController {
     //load data to the page
     public void loadData(ArrayList<String> dataForReport) {
 		try {		
-			this.dataForReport = dataForReport;
-			this.txtMonth.setText(dataForReport.get(1));
-			this.txtYear.setText(dataForReport.get(2));
+			//this.dataForReport = dataForReport;
+			//this.txtMonth.setText(dataForReport.get(1));
+			//this.txtYear.setText(dataForReport.get(2));
+			
+			//create usage report
+			ArrayList<Object> arrmsg = new ArrayList<Object>();
+			arrmsg.add(new String("CreateDatesUsageReport"));
+			arrmsg.add(new String("String"));
+			arrmsg.add(dataForReport.get(0));
+			ClientUI.chat.accept(arrmsg);
+			
+			if(ChatClient.result == false)
+				throw new NullPointerException("CreateDatesUsageReport wasn't created");
+			this.txtError.setText("The report created successfully!");
 			
 			//get dates from DB
 			ArrayList<String> dataForRep = new ArrayList<String>();
@@ -67,25 +81,27 @@ public class UsageReportPageController {
 			dataForRep.add(dataForReport.get(1)); //month
 			dataForRep.add(dataForReport.get(2)); //year
 			
-			ArrayList<Object> arrmsg = new ArrayList<Object>();
+			arrmsg = new ArrayList<Object>();
 			arrmsg.add(new String("GetDatesUsageReport"));
 			arrmsg.add(new String("ArrayList<String>"));
-			arrmsg.add(new String("Get"));
-			//ClientUI.chat.accept(dataForRep);
+			arrmsg.add(dataForRep);
+			ClientUI.chat.accept(arrmsg);
 			
 			////////////////CHECK//////////////////////
 			ObservableList<ReportData> reportData = FXCollections.observableArrayList();
-			/*if(!ChatClient.dataFromServer.get(0).equals("null")) {
+			if(!ChatClient.dataFromServer.get(0).equals("null")) {
 				for(String data : ChatClient.dataFromServer) {
 					reportData.add(new ReportData(data));
 				}	
 			}
-			this.loadTableData(reportData);*/
+			this.loadTableData(reportData);
 			
-			reportData.add(new ReportData("21-12-1998"));
+			//reportData.add(new ReportData("21-12-1998"));
 			this.loadTableData(reportData);
 		
-		} catch (Exception e) {
+		}catch(NullPointerException e) {
+			this.txtError.setText(e.getMessage());
+		}catch (Exception e) {
 			System.out.println("Error in UsageReportPageController: loadData");
 			System.out.println(e.getMessage());
 		}

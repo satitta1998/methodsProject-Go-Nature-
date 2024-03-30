@@ -51,15 +51,8 @@ public class DepartmentManagerController {
 			arrmsg.add(new String("AvilableSpaceGet"));
 			arrmsg.add(new String(parkName));
 			arrmsg.add(new String("Get"));
-			
-			//////////OPEN///////////////
-			//ClientUI.chat.accept(arrmsg);
-			
-			//////////CHECK///////////
-			ChatClient.dataFromServer = new ArrayList<String>();
-			ChatClient.dataFromServer.add(new String("15"));
-			ChatClient.dataFromServer.add(new String("5"));
-			
+			ClientUI.chat.accept(arrmsg);
+
 			if (ChatClient.dataFromServer.equals(null))
 				throw new NullPointerException("This park doesn't exists.");
 			
@@ -73,10 +66,10 @@ public class DepartmentManagerController {
 			arrmsg.add(new String("ParkCheckIfApproveRequired"));
 			arrmsg.add(new String(parkName));
 			///////////OPEN///////////////////
-			//ClientUI.chat.accept(arrmsg);
+			ClientUI.chat.accept(arrmsg);
 			
 			/////////CHECK//////////////
-			ChatClient.result = false;
+			//ChatClient.result = false;
 			
 			//show the information 
     		if(ChatClient.result == true) {
@@ -84,16 +77,7 @@ public class DepartmentManagerController {
 				arrmsg.add(new String("ParkNewParamsGet"));
 				arrmsg.add(new String("String"));
 				arrmsg.add(new String(parkName));
-				
-				///////OPEN////////////
-				//ClientUI.chat.accept(arrmsg);
-				
-				/////////CHECK///////////////
-				ChatClient.dataFromServer = new ArrayList<String>();
-				ChatClient.dataFromServer.add(new String("23"));
-				ChatClient.dataFromServer.add(new String("32"));
-				ChatClient.dataFromServer.add(new String("5"));
-				ChatClient.dataFromServer.add(new String("7"));
+				ClientUI.chat.accept(arrmsg);
 				
 				if (ChatClient.dataFromServer.equals(null))
 					throw new NullPointerException("This park doesn't exists.");
@@ -135,10 +119,10 @@ public class DepartmentManagerController {
     		updatePark.add(new String("0"));
     		arrmsg.add(updatePark);
     		///////////OPEN///////////////
-    		//ClientUI.chat.accept(arrmsg);
+    		ClientUI.chat.accept(arrmsg);
     		
     		/////////////CHECK//////////////
-    		ChatClient.result = true;
+    		//ChatClient.result = true;
     		
 			
 			if (ChatClient.result == false)
@@ -205,16 +189,7 @@ public class DepartmentManagerController {
     		arrmsg.add(new String("ParkCurrentParamsGet"));
             arrmsg.add(new String("String"));
             arrmsg.add(new String(parkName));
-            
-            //////////////OPEN////////////
-            //ClientUI.chat.accept(arrmsg);
-            
-            /////////CHECK///////////
-            ChatClient.dataFromServer = new ArrayList<String>();
-            ChatClient.dataFromServer.add("36");
-            ChatClient.dataFromServer.add("6");
-            ChatClient.dataFromServer.add("60");
-            ChatClient.dataFromServer.add("9");
+            ClientUI.chat.accept(arrmsg);
 
             if (ChatClient.dataFromServer.equals(null))
                 throw new NullPointerException("This park doesn't exists.");
@@ -232,10 +207,10 @@ public class DepartmentManagerController {
     		arrmsg.add(new String("ArrayList<String>"));
     		arrmsg.add(updatePark);
     		//////////////////OPEN/////////////
-			//ClientUI.chat.accept(arrmsg);
+			ClientUI.chat.accept(arrmsg);
     		
     		//////////CHEK/////////////
-    		ChatClient.result = true;
+    		//ChatClient.result = true;
     		
 			if (ChatClient.result == false)
 				throw new NullPointerException("Update Park info woesn't succesful.");
@@ -271,12 +246,12 @@ public class DepartmentManagerController {
 			arrmsg.add(new String("Get"));
 			
 			//////////OPEN///////////////
-			//ClientUI.chat.accept(arrmsg);
+			ClientUI.chat.accept(arrmsg);
 			
 			//////////CHECK///////////
-			ChatClient.dataFromServer = new ArrayList<String>();
-			ChatClient.dataFromServer.add(new String("15"));
-			ChatClient.dataFromServer.add(new String("5"));
+			//ChatClient.dataFromServer = new ArrayList<String>();
+			//ChatClient.dataFromServer.add(new String("15"));
+			//ChatClient.dataFromServer.add(new String("5"));
 			
 			if (ChatClient.dataFromServer.equals(null))
 				throw new NullPointerException("This park doesn't exists.");

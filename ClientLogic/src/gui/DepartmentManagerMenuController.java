@@ -68,15 +68,27 @@ public class DepartmentManagerMenuController {
 
     @FXML
     void pressLogout(ActionEvent event) {
-    	try {
-    		///////////ENTER LOG OUT REQUEST////////////
-    		
-        	NextPage page = new NextPage(event, "/gui/Login.fxml", "Login Page", "LoginController", "pressLogoutBtn"); 
-        	page.Next();
-    	}catch (Exception e) {
-    		System.out.println("Error in DepartmentManagerController: pressLogOut");
-    		System.out.println(e.getMessage());
-    	}
+		try {
+			ArrayList<Object> arrmsg = new ArrayList<Object>();
+			arrmsg.add(new String("UserLogOut"));
+			arrmsg.add(new String("String"));
+			arrmsg.add(ChatClient.userName);
+			ClientUI.chat.accept(arrmsg);
+
+			if (ChatClient.result == true) {
+				ChatClient.userName = "";
+	        	NextPage page = new NextPage(event, "/gui/Login.fxml", "Login Page", "LoginController", "pressLogoutBtn"); 
+	        	page.Next();
+			} else {
+				throw new NullPointerException("User wasn't logged out");
+
+			}
+		}catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+		}catch (Exception e) {
+			System.out.println("Error in DepartmentManagerController: pressLogOut");
+			System.out.println(e.getMessage());
+		}
     }
 }
 
