@@ -1,6 +1,7 @@
 package gui;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
@@ -47,114 +48,86 @@ public class CancellationReportController{
     public void loadData(ArrayList<String> dataForReport) {
     	try {
         	this.dataForReport = dataForReport;
-    		
-    		////////////////CHECK///////////////////
-    		/*dataForReport = new ArrayList<>();
-    		dataForReport.add("Central Park");
-    		dataForReport.add("01");
-    		dataForReport.add("03");
-    		dataForReport.add("2011");
-    		dataForReport.add("07");
-    		dataForReport.add("03");
-    		dataForReport.add("2011");
-    		
-    		ArrayList<ArrayList<Integer>> array = new ArrayList<>();
-    		ArrayList<Integer> avarage = new ArrayList<>();
-    		avarage.add(14);
-    		avarage.add(20);
-    		array.add(avarage);
-    		
-    		ArrayList<Integer> day1 = new ArrayList<>();
-    		day1.add(14);
-    		day1.add(6);
-    		array.add(day1);
-    		
-    		ArrayList<Integer> day2 = new ArrayList<>();
-    		day2.add(3);
-    		day2.add(7);
-    		array.add(day2);
-    		
-    		ArrayList<Integer> day3 = new ArrayList<>();
-    		day3.add(14);
-    		day3.add(6);
-    		array.add(day3);
-    		
-    		ArrayList<Integer> day4 = new ArrayList<>();
-    		day4.add(3);
-    		day4.add(7);
-    		array.add(day4);
-    		
-    		ArrayList<Integer> day5 = new ArrayList<>();
-    		day5.add(14);
-    		day5.add(6);
-    		array.add(day5);
-    		
-    		ArrayList<Integer> day6 = new ArrayList<>();
-    		day6.add(3);
-    		day6.add(7);
-    		array.add(day6);
-    		
-    		ArrayList<Integer> day7 = new ArrayList<>();
-    		day7.add(3);
-    		day7.add(7);
-    		array.add(day7);
-    		
 			//calculate the difference between the dates
+        	if ( (  Integer.parseInt(dataForReport.get(2)) >= 1) && ( Integer.parseInt(dataForReport.get(2)) <= 9) )
+        		dataForReport.set(2, "0"+dataForReport.get(2));
+        	
+        	if ( (  Integer.parseInt(dataForReport.get(5)) >= 1) && ( Integer.parseInt(dataForReport.get(5)) <= 9) )
+        		dataForReport.set(5, "0"+dataForReport.get(5));
+        	
+        	if ( (  Integer.parseInt(dataForReport.get(1)) >= 1) && ( Integer.parseInt(dataForReport.get(1)) <= 9) )
+        		dataForReport.set(1, "0"+dataForReport.get(1));
+        	
+        	if ( (  Integer.parseInt(dataForReport.get(4)) >= 1) && ( Integer.parseInt(dataForReport.get(4)) <= 9) )
+        		dataForReport.set(4, "0"+dataForReport.get(4));
+
 	        String date1String = new String(dataForReport.get(3)+"-"+dataForReport.get(2)+"-"+dataForReport.get(1)); // First date in YYYY-MM-DD format
 	        String date2String = new String(dataForReport.get(6)+"-"+dataForReport.get(5)+"-"+dataForReport.get(4)); // Second date in YYYY-MM-DD format
-	        LocalDate date1 = LocalDate.parse(date1String);
-	        LocalDate date2 = LocalDate.parse(date2String);
-	        long daysBetween = ChronoUnit.DAYS.between(date1, date2);
+	        //LocalDate date1 = LocalDate.parse(date1String);
+	        //LocalDate date2 = LocalDate.parse(date2String);
 	        
-	        //guided
-	        XYChart.Series<String, Integer> dataSeries1 = new XYChart.Series<String, Integer>();
-	        for(int i = 1; i <= daysBetween; i++) {
-	        	dataSeries1.setName("cancelled");
-	        	
-	        	 // Iterate over the dates
-	        	LocalDate currentDate = date1;
-	        	while (!currentDate.isAfter(date2)) {
-	        		dataSeries1.getData().add(new XYChart.Data<>(currentDate.toString(), array.get(i).get(0)));
-	        		currentDate = currentDate.plusDays(1); // Move to the next day
-	        	}
-	        }
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        LocalDate date1 = LocalDate.parse(date1String, formatter);
+	        LocalDate date2 = LocalDate.parse(date2String, formatter);
+	        long daysBetween = ChronoUnit.DAYS.between(date1, date2)+1;
 	        
-	        
-	        //single
-	        XYChart.Series<String, Integer> dataSeries2 = new Series<String, Integer>();
-	        for(int i = 1; i <= daysBetween; i++) {
-	        	//single
-	        	dataSeries2.setName("not fully cancelled");
-	        	
-	        	 // Iterate over the dates
-	        	LocalDate currentDate = date1;
-	        	while (!currentDate.isAfter(date2)) {
-	        		dataSeries2.getData().add(new XYChart.Data<>(currentDate.toString(), array.get(i).get(1)));
-	        		currentDate = currentDate.plusDays(1); // Move to the next day
-	        	}
-	        }
-    		
-	        //set the average to the label
-	        this.txtAvFully.setText(array.get(0).get(0).toString());
-	        this.txtAvNotFully.setText(array.get(0).get(1).toString());*/
-    		
-    		
-    		///////////////////REAL CODE//////////////////////
+			//create arrays for data and set 0
+			Integer avarageCancelled = 0;
+			Integer avarageNotFullyCancelled = 0;
+			Integer[] amountCancelled = new Integer[(int)daysBetween];
+			Integer[] amountNotFullyCancelled = new Integer[(int)daysBetween];
+			Integer totalAvarageCancelled = 0;
+			Integer totalAvarageNotFullyCancelled = 0;
+        	
     		if(dataForReport.get(0).equals("All parks")) {
-        		ArrayList<String> dataRep = new ArrayList<>();
-        		dataRep.add(dataForReport.get(1)); //day_from
-        		dataRep.add(dataForReport.get(2)); //month_from
-        		dataRep.add(dataForReport.get(3)); //year_from
-        		
-        		dataRep.add(dataForReport.get(4)); //day_to
-        		dataRep.add(dataForReport.get(5)); //month_to
-        		dataRep.add(dataForReport.get(6)); //year_to
-        		
+    			//get the list of all parks
     			ArrayList<Object> arrmsg = new ArrayList<Object>();
-    			arrmsg.add(new String("ShowCancellationReportAllParks"));
-    			arrmsg.add(new String("ArrayList<String>"));
-    			arrmsg.add(dataRep);
+    			arrmsg.add(new String("ParksListGet "));
+    			arrmsg.add(new String("Go"));
+    			arrmsg.add(new String("Go"));
     			ClientUI.chat.accept(arrmsg);
+    			
+    			if (ChatClient.dataFromServer.get(0).equals("null"))
+    				throw new NullPointerException("The parks list doesn't exists.");
+    			ArrayList<String> allParksArray = new ArrayList<>();
+    			allParksArray.addAll(ChatClient.dataFromServer);
+    			
+    			for (int i = 0; i < amountCancelled.length; i++)
+    			    amountCancelled[i] = 0;
+    			for (int i = 0; i < amountNotFullyCancelled.length; i++)
+    			    amountNotFullyCancelled[i] = 0;
+    			
+    			for(int i=0; i < allParksArray.size(); i++) {
+    				
+            		ArrayList<String> dataRep = new ArrayList<>();
+            		dataRep.add(allParksArray.get(i)); //park name
+            		dataRep.add(dataForReport.get(1)); //day_from
+            		dataRep.add(dataForReport.get(2)); //month_from
+            		dataRep.add(dataForReport.get(3)); //year_from
+            		
+            		dataRep.add(dataForReport.get(4)); //day_to
+            		dataRep.add(dataForReport.get(5)); //month_to
+            		dataRep.add(dataForReport.get(6)); //year_to
+    				
+        			arrmsg = new ArrayList<Object>();
+        			arrmsg.add(new String("ShowCancellationReport"));
+        			arrmsg.add(new String("ArrayList<String>"));
+        			arrmsg.add(dataRep);
+        			ClientUI.chat.accept(arrmsg);
+        			
+        			if(ChatClient.dataFromServer.get(0).equals("null"))
+        				throw new NullPointerException("No report data");
+        			
+        			avarageCancelled += ChatClient.intDataFromServer.get(0).get(0);
+        			avarageNotFullyCancelled += ChatClient.intDataFromServer.get(0).get(1);
+        			
+        			for(int j=0; j < daysBetween; j++) {
+        				amountCancelled[j] += ChatClient.intDataFromServer.get(j+1).get(0);
+        				amountNotFullyCancelled[j] += ChatClient.intDataFromServer.get(j+1).get(1);
+        			}
+    			}
+    			totalAvarageCancelled = avarageCancelled/allParksArray.size();
+    			totalAvarageNotFullyCancelled = avarageNotFullyCancelled/allParksArray.size();
     		}else {
         		ArrayList<String> dataRep = new ArrayList<>();
         		dataRep.add(dataForReport.get(0)); //park name
@@ -171,18 +144,11 @@ public class CancellationReportController{
     			arrmsg.add(new String("ArrayList<String>"));
     			arrmsg.add(dataRep);
     			ClientUI.chat.accept(arrmsg);
+    			
+    			if(ChatClient.dataFromServer.get(0).equals("null"))
+    				throw new NullPointerException("No report data");
     		}
-    		
-			if(ChatClient.dataFromServer.get(0).equals("null"))
-				throw new NullPointerException("No report data");
-			
-			//calculate the difference between the dates
-	        String date1String = new String(dataForReport.get(3)+"-"+dataForReport.get(2)+"-"+dataForReport.get(1)); // First date in YYYY-MM-DD format
-	        String date2String = new String(dataForReport.get(6)+"-"+dataForReport.get(5)+"-"+dataForReport.get(4)); // Second date in YYYY-MM-DD format
-	        LocalDate date1 = LocalDate.parse(date1String);
-	        LocalDate date2 = LocalDate.parse(date2String);
-	        long daysBetween = ChronoUnit.DAYS.between(date1, date2);
-	        
+
 	        //guided
 	        XYChart.Series<String, Integer> dataSeries1 = new XYChart.Series<String, Integer>();
 	        for(int i = 1; i <= daysBetween; i++) {
@@ -190,9 +156,14 @@ public class CancellationReportController{
 	        	
 	        	 // Iterate over the dates
 	        	LocalDate currentDate = date1;
+	        	int j = 0;
 	        	while (!currentDate.isAfter(date2)) {
-	        		dataSeries1.getData().add(new XYChart.Data<>(currentDate.toString(), ChatClient.intDataFromServer.get(i).get(0)));
+	        		if (dataForReport.get(0).equals("All parks"))
+	        			dataSeries1.getData().add(new XYChart.Data<>(currentDate.toString(), amountCancelled[j]));
+	        		else
+	        			dataSeries1.getData().add(new XYChart.Data<>(currentDate.toString(), ChatClient.intDataFromServer.get(i).get(0)));
 	        		currentDate = currentDate.plusDays(1); // Move to the next day
+	        		j++;
 	        	}
 	        }
 	        
@@ -205,18 +176,26 @@ public class CancellationReportController{
 	        	
 	        	 // Iterate over the dates
 	        	LocalDate currentDate = date1;
+	        	int j=0;
 	        	while (!currentDate.isAfter(date2)) {
-	        		dataSeries1.getData().add(new XYChart.Data<>(currentDate.toString(), ChatClient.intDataFromServer.get(i).get(1)));
+	        		if (dataForReport.get(0).equals("All parks"))
+	        			dataSeries2.getData().add(new XYChart.Data<>(currentDate.toString(), amountNotFullyCancelled[j]));
+	        		else
+	        			dataSeries2.getData().add(new XYChart.Data<>(currentDate.toString(), ChatClient.intDataFromServer.get(i).get(1)));
 	        		currentDate = currentDate.plusDays(1); // Move to the next day
+	        		j++;
 	        	}
 	        }
 	        
 	        //set the average to the label
-	        this.txtAvFully.setText(ChatClient.intDataFromServer.get(0).get(0).toString());
-	        this.txtAvNotFully.setText(ChatClient.intDataFromServer.get(0).get(1).toString());
-		    //////////////END REAL CODE////////////////////////
-    		
-    		
+	        if (dataForReport.get(0).equals("All parks")) {
+		        this.txtAvFully.setText(totalAvarageCancelled.toString());
+		        this.txtAvNotFully.setText(totalAvarageNotFullyCancelled.toString());
+	        }else {
+		        this.txtAvFully.setText(ChatClient.intDataFromServer.get(0).get(0).toString());
+		        this.txtAvNotFully.setText(ChatClient.intDataFromServer.get(0).get(1).toString());
+	        }
+  		
 			chart.getData().addAll(dataSeries1, dataSeries2);
     		
     	}catch(NullPointerException e) {

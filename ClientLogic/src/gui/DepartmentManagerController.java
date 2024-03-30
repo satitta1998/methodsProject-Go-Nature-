@@ -47,10 +47,11 @@ public class DepartmentManagerController {
     public void loadData(String parkName) 
     {
     	try {
+    		this.parkName = parkName;
     		ArrayList<Object> arrmsg = new ArrayList<Object>();
 			arrmsg.add(new String("AvilableSpaceGet"));
+			arrmsg.add(new String("String"));
 			arrmsg.add(new String(parkName));
-			arrmsg.add(new String("Get"));
 			ClientUI.chat.accept(arrmsg);
 
 			if (ChatClient.dataFromServer.equals(null))
@@ -59,7 +60,7 @@ public class DepartmentManagerController {
 			Integer spaceInPark = (Integer.parseInt(ChatClient.dataFromServer.get(0)) - Integer.parseInt(ChatClient.dataFromServer.get(1)));
 			availableSpaceTxt.setText(Integer.toString(spaceInPark));
     		
-    		this.parkName = parkName;
+    		
     		//load data
     		//check if there are new information to approve
     		arrmsg = new ArrayList<Object>();

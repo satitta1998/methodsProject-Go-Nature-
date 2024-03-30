@@ -92,15 +92,15 @@ public class VisitingReportController{
 		    //single
 			XYChart.Series<String, Integer> dataSeries2 = new Series<String, Integer>();
 			dataSeries2.setName("Single visitor");
-		    dataSeries1.getData().add(new XYChart.Data<>("9", ChatClient.intDataFromServer.get(0).get(1)));
-		    dataSeries1.getData().add(new XYChart.Data<>("10", ChatClient.intDataFromServer.get(1).get(1)));
-		    dataSeries1.getData().add(new XYChart.Data<>("11", ChatClient.intDataFromServer.get(2).get(1)));
-		    dataSeries1.getData().add(new XYChart.Data<>("12", ChatClient.intDataFromServer.get(3).get(1)));
-		    dataSeries1.getData().add(new XYChart.Data<>("13", ChatClient.intDataFromServer.get(4).get(1)));
-		    dataSeries1.getData().add(new XYChart.Data<>("14", ChatClient.intDataFromServer.get(5).get(1)));
-		    dataSeries1.getData().add(new XYChart.Data<>("15", ChatClient.intDataFromServer.get(6).get(1)));
-		    dataSeries1.getData().add(new XYChart.Data<>("16", ChatClient.intDataFromServer.get(7).get(1)));
-		    dataSeries1.getData().add(new XYChart.Data<>("17", ChatClient.intDataFromServer.get(8).get(1)));
+			dataSeries2.getData().add(new XYChart.Data<>("9", ChatClient.intDataFromServer.get(0).get(1)));
+		    dataSeries2.getData().add(new XYChart.Data<>("10", ChatClient.intDataFromServer.get(1).get(1)));
+		    dataSeries2.getData().add(new XYChart.Data<>("11", ChatClient.intDataFromServer.get(2).get(1)));
+		    dataSeries2.getData().add(new XYChart.Data<>("12", ChatClient.intDataFromServer.get(3).get(1)));
+		    dataSeries2.getData().add(new XYChart.Data<>("13", ChatClient.intDataFromServer.get(4).get(1)));
+		    dataSeries2.getData().add(new XYChart.Data<>("14", ChatClient.intDataFromServer.get(5).get(1)));
+		    dataSeries2.getData().add(new XYChart.Data<>("15", ChatClient.intDataFromServer.get(6).get(1)));
+		    dataSeries2.getData().add(new XYChart.Data<>("16", ChatClient.intDataFromServer.get(7).get(1)));
+		    dataSeries2.getData().add(new XYChart.Data<>("17", ChatClient.intDataFromServer.get(8).get(1)));
 
 		    chart.getData().addAll(dataSeries1, dataSeries2);
     	}catch (NullPointerException e) {

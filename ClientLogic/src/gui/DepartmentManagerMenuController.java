@@ -39,6 +39,7 @@ public class DepartmentManagerMenuController {
 					throw new NullPointerException("The parks list doesn't exists.");
 				
 				this.parkBox.getItems().addAll(ChatClient.dataFromServer);
+				this.parkBox.getItems().add("All parks");
 	    	}catch (NullPointerException e) {
 				System.out.println(e.getMessage());
 	    	}

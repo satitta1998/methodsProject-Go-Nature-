@@ -60,9 +60,9 @@ public class UsageReportPageController {
     //load data to the page
     public void loadData(ArrayList<String> dataForReport) {
 		try {		
-			//this.dataForReport = dataForReport;
-			//this.txtMonth.setText(dataForReport.get(1));
-			//this.txtYear.setText(dataForReport.get(2));
+			this.dataForReport = dataForReport;
+			this.txtMonth.setText(dataForReport.get(1));
+			this.txtYear.setText(dataForReport.get(2));
 			
 			//create usage report
 			ArrayList<Object> arrmsg = new ArrayList<Object>();

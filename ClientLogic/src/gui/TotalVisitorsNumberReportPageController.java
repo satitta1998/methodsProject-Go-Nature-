@@ -1,5 +1,6 @@
 package gui;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -17,51 +19,32 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class TotalVisitorsNumberReportPageController {
-	
     @FXML
-    private TableColumn<ReportData, String> colDate;
-
-    @FXML
-    private TableColumn<ReportData, String> colGuidedVisit;
-
-    @FXML
-    private TableColumn<ReportData, String> colPrivFamVisit;
+    private PieChart pieChartReport;
     
-    @FXML
-    private TableView<ReportData> tblVistitorsNum;
-	
     @FXML
     private Button btnClose;
 
     @FXML
-    private Text txtMonth;
+    private Text txtMonth, txtYear, txtTotal, txtError;
 
-    @FXML
-    private Text txtYear;
-    
-    @FXML
-    private Text txtError;
-
-    
     private ArrayList<String> dataForReport;
     //data report = {0 - parkName, 1 - month, 2 - year
     
     //load report data
     public void loadData(ArrayList<String> dataForReport) {
-    	try {
-			//this.dataForReport = dataForReport;
-			//this.txtMonth.setText(dataForReport.get(1));
-			//this.txtYear.setText(dataForReport.get(2));
-    		
+    	try {    		
+			this.dataForReport = dataForReport;
+			this.txtMonth.setText(dataForReport.get(1));
+			this.txtYear.setText(dataForReport.get(2));
+			
     		//create order
 			ArrayList<Object> arrmsg = new ArrayList<Object>();
 			arrmsg.add(new String("CreateVisitorsNumReport"));
 			arrmsg.add(new String("String"));
 			arrmsg.add(dataForReport.get(0));
 			ClientUI.chat.accept(arrmsg);
-			
-			if(ChatClient.result == false)
-				throw new NullPointerException("No report created");
+				
 			
 			this.txtError.setText("Report created successfully");
 
@@ -79,14 +62,32 @@ public class TotalVisitorsNumberReportPageController {
 			
 			if(ChatClient.dataFromServer.get(0).equals("null"))
 				throw new NullPointerException("No report returned from DB");
+    		
+			
+            // Insert data to the PieChart
+            int privateVisitors = Integer.parseInt(ChatClient.dataFromServer.get(0));
+            int groupVisitors = Integer.parseInt(ChatClient.dataFromServer.get(1));
+            
+            // Create the PieChart data
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                    new PieChart.Data("Private Visitors", privateVisitors),
+                    new PieChart.Data("Group Visitors", groupVisitors)
+            );
+            
+            
+            // Create the PieChart
+            this.pieChartReport.setData(pieChartData);
+            
+            // Display numbers on chart
+            for (PieChart.Data data : this.pieChartReport.getData()) {
+                data.setName(data.getName() + " (" + (int)data.getPieValue() + ")");
+            }
+            
+            Integer intTotalVisitors = privateVisitors + groupVisitors;           
+            this.txtTotal.setText(intTotalVisitors.toString());
 
-			//CHECK: NEED TO MAKE THE REAL CODE
-			ObservableList<ReportData> reportData = FXCollections.observableArrayList();
-			reportData.add(new ReportData("21-12-1998","15","89"));
-			this.loadTableData(reportData);
 			
-			
-		}catch(NullPointerException e) {
+		}catch(IllegalArgumentException e) {
 			this.txtError.setText(e.getMessage());
 		}
     	catch (Exception e) {
@@ -107,43 +108,5 @@ public class TotalVisitorsNumberReportPageController {
     		System.out.println(e.getMessage());
     	}
     }
-    
-    //private class for report data
-    private class ReportData {
-    	private SimpleStringProperty date;
-    	private SimpleStringProperty privateFamilyVisit;
-    	private SimpleStringProperty guidedGroupVisit;
-    	
-    	public ReportData(String date, String privateFamilyVisit, String guidedGroupVisit) {
-    		this.date = new SimpleStringProperty(date);
-    		this.privateFamilyVisit = new SimpleStringProperty(privateFamilyVisit);
-    		this.guidedGroupVisit = new SimpleStringProperty(guidedGroupVisit);
-    	}
-    	
-    	public SimpleStringProperty date() {
-    		return date;
-    	}
-    	
-    	public SimpleStringProperty privateFamilyVisit() {
-    		return privateFamilyVisit;
-    	}
-    	
-    	public SimpleStringProperty guidedGroupVisit() {
-    		return guidedGroupVisit;
-    	}
-    }//end private class
-    
-	private void loadTableData(ObservableList<ReportData> repData) {
-		try {
-			this.colDate.setCellValueFactory(cellData -> cellData.getValue().date());
-			this.colGuidedVisit.setCellValueFactory(cellData -> cellData.getValue().guidedGroupVisit());
-			this.colPrivFamVisit.setCellValueFactory(cellData -> cellData.getValue().privateFamilyVisit());
-			this.tblVistitorsNum.setItems(repData);
-
-		} catch (Exception e) {
-			System.out.println("Error in ServerPortFrameController: loadTableData");
-			System.out.println(e.getMessage());
-		}
-	}
 
 }

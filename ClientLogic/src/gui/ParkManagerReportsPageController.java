@@ -1,5 +1,6 @@
 package gui;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
 import entity.NextPage;
 import entity.SecondPage;
@@ -104,6 +105,13 @@ public class ParkManagerReportsPageController {
     		if (selectedReportType != null) {
     			switch (selectedReportType) {
     				case TOTAL_VISITORS_NUMBER: {
+    					//the provided month and year are not the same as the current month and year
+    			        YearMonth inputYearMonth = YearMonth.of(Integer.parseInt(dataForReport.get(2)), Integer.parseInt(dataForReport.get(1)));
+    			        YearMonth currentYearMonth = YearMonth.now();
+    			        if (!inputYearMonth.equals(currentYearMonth)) {
+    			            throw new IllegalArgumentException("You can create report only for the current month and year.");
+    			        }
+    			        
     		        	SecondPage page = new SecondPage(event, "/gui/TotalVisitorsNumberReportPage.fxml", "", "TotalVisitorsNumberReportPageController", "pressBackBtn", dataForReport); 
     		        	page.openSecondPage();
     					break;}
