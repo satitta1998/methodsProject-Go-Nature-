@@ -1,3 +1,7 @@
+/**
+ * The SecondPage class facilitates the navigation to secondary pages in the application.
+ * It is responsible for loading FXML files, initializing controllers, and displaying the secondary stages.
+ */
 package entity;
 
 import gui.InvoiceController;
@@ -27,6 +31,14 @@ public class SecondPage {
 	private Object data;
 	private String method;
 	
+    /**
+     * Constructs a SecondPage object with specified parameters.
+     * @param event The ActionEvent triggering the navigation.
+     * @param path The path to the FXML file of the secondary page.
+     * @param title The title of the secondary stage.
+     * @param controller The name of the controller associated with the secondary page.
+     * @param method The method to be called in the associated controller.
+     */
 	//Constructors
 	public SecondPage(ActionEvent event, String path, String title, String controller, String method) {
 		this.event = event; 
@@ -36,6 +48,15 @@ public class SecondPage {
 		this.method = method;
 	}
 	
+    /**
+     * Constructs a SecondPage object with specified parameters including data.
+     * @param event The ActionEvent triggering the navigation.
+     * @param path The path to the FXML file of the secondary page.
+     * @param title The title of the secondary stage.
+     * @param controller The name of the controller associated with the secondary page.
+     * @param method The method to be called in the associated controller.
+     * @param data The data object to be passed to the controller.
+     */
 	public SecondPage(ActionEvent event, String path, String title, String controller, String method, Object data) {
 		this.event = event; 
 		this.path = path;
@@ -45,6 +66,14 @@ public class SecondPage {
 		this.data = data;
 	}
 	
+    /**
+     * Constructs a SecondPage object with specified parameters including data, without an associated event.
+     * @param path The path to the FXML file of the secondary page.
+     * @param title The title of the secondary stage.
+     * @param controller The name of the controller associated with the secondary page.
+     * @param method The method to be called in the associated controller.
+     * @param data The data object to be passed to the controller.
+     */
 	public SecondPage(String path, String title, String controller, String method, Object data) {
 		this.path = path;
 		this.title = title;
@@ -53,6 +82,12 @@ public class SecondPage {
 		this.data = data;
 	}
 	
+    /**
+     * Opens the secondary page based on the specified parameters.
+     * This method loads the FXML file, initializes the associated controller,
+     * and displays the secondary stage.
+     * @throws Exception If an error occurs during page navigation.
+     */
 	//function for changing pages
 	public void openSecondPage() throws Exception {
 		Platform.runLater(() -> {

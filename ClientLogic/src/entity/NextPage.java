@@ -1,3 +1,7 @@
+/**
+ * Utility class for navigating between different GUI pages.
+ * This class provides methods to switch to different pages based on user actions.
+ */
 package entity;
 
 import java.util.ArrayList;
@@ -19,6 +23,14 @@ public class NextPage {
 	private Object data;
 	private String method;
 	
+    /**
+     * Constructor for NextPage without passing additional data.
+     * @param event The ActionEvent representing the user action triggering the page change.
+     * @param path The path to the FXML file of the next page.
+     * @param title The title of the next page.
+     * @param controller The name of the controller class associated with the next page.
+     * @param method The name of the method associated with the next page.
+     */
 	//Constructors
 	public NextPage(ActionEvent event, String path, String title, String controller, String method) {
 		this.event = event; 
@@ -28,6 +40,15 @@ public class NextPage {
 		this.method = method;
 	}
 	
+    /**
+     * Constructor for NextPage with additional data.
+     * @param event The ActionEvent representing the user action triggering the page change.
+     * @param path The path to the FXML file of the next page.
+     * @param title The title of the next page.
+     * @param controller The name of the controller class associated with the next page.
+     * @param method The name of the method associated with the next page.
+     * @param data Additional data to be passed to the next page.
+     */
 	public NextPage(ActionEvent event, String path, String title, String controller, String method, Object data) {
 		this.event = event; 
 		this.path = path;
@@ -37,7 +58,10 @@ public class NextPage {
 		this.data = data;
 	}
 	
-	
+    /**
+     * Navigates to the next page based on the provided parameters.
+     * @throws Exception If an error occurs during the navigation process.
+     */
 	//function for changing pages
 	public void Next() throws Exception {
 		try{

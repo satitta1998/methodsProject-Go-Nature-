@@ -48,7 +48,6 @@
       <Text fx:id="closesParkTxt" layoutX="258.0" layoutY="271.0" stroke="#a16666" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="188.0" />
       <Text fx:id="availableSpaceTxt" layoutX="258.0" layoutY="316.0" stroke="#a16666" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="188.0" />
       <Button fx:id="btnDeny" layoutX="236.0" layoutY="347.0" mnemonicParsing="false" onAction="#pressDeny" text="Deny" />
-      <Button fx:id="btnRefresh" layoutX="397.0" layoutY="297.0" mnemonicParsing="false" onAction="#pressRefreshbtn" text="Refresh" />
       <Text fx:id="promptTxt" fill="RED" layoutX="84.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="346.13670349121094">
          <font>
             <Font size="14.0" />

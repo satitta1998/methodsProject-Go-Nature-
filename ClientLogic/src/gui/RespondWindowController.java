@@ -1,3 +1,7 @@
+/**
+ * The controller class for the Respond Window GUI.
+ * This class handles displaying response messages and images to the user.
+ */
 package gui;
 
 import java.io.FileInputStream;
@@ -22,6 +26,11 @@ public class RespondWindowController {
     @FXML
     private ImageView resultImg;
     
+    /**
+     * Sets the image based on the result.
+     * 
+     * @param result The result message to determine which image to display.
+     */
     //Setting image to the image view
     public void setImage(String result) {
     	try {
@@ -39,6 +48,11 @@ public class RespondWindowController {
 		}
     }
     
+    /**
+     * Sets the label with the provided text.
+     * 
+     * @param text The text to set in the label.
+     */
     //Setting label with the text
     public void setLabel(String text) {
     	try {
@@ -49,6 +63,12 @@ public class RespondWindowController {
     	}
     }
 
+    /**
+     * Handles the event when the "Close" button is pressed.
+     * Redirects to the Traveller Page GUI.
+     * 
+     * @param event The ActionEvent triggered by pressing the button.
+     */
     //Event for "Close" button
     @FXML
     void pressCloseBtn(ActionEvent event) {

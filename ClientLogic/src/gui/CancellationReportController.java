@@ -1,3 +1,7 @@
+/**
+ * The CancellationReportController class controls the user interface for generating and displaying cancellation reports.
+ * It allows users to view cancellation data for a specified date range and park, including the average number of fully cancelled and not fully cancelled orders.
+ */
 package gui;
 
 import java.time.LocalDate;
@@ -18,6 +22,11 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Loads the data for generating the cancellation report.
+ * 
+ * @param dataForReport The data necessary for generating the report, including the park name and date range.
+ */
 public class CancellationReportController{
     @FXML
     private CategoryAxis X;
@@ -63,8 +72,6 @@ public class CancellationReportController{
 
 	        String date1String = new String(dataForReport.get(3)+"-"+dataForReport.get(2)+"-"+dataForReport.get(1)); // First date in YYYY-MM-DD format
 	        String date2String = new String(dataForReport.get(6)+"-"+dataForReport.get(5)+"-"+dataForReport.get(4)); // Second date in YYYY-MM-DD format
-	        //LocalDate date1 = LocalDate.parse(date1String);
-	        //LocalDate date2 = LocalDate.parse(date2String);
 	        
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	        LocalDate date1 = LocalDate.parse(date1String, formatter);
@@ -207,7 +214,11 @@ public class CancellationReportController{
 
     }
   
-
+    /**
+     * Handles the event when the "Back" button is pressed, closing the current stage.
+     * 
+     * @param event The ActionEvent triggered by pressing the "Back" button.
+     */
     //Event for "Back" button
     @FXML
     void pressBack(ActionEvent event) {

@@ -1,3 +1,6 @@
+/**
+ * The PriceGenerator class calculates the final price for a visit based on various parameters.
+ */
 package entity;
 
 import java.util.ArrayList;
@@ -20,56 +23,122 @@ public class PriceGenerator {
 	private Boolean isPaidInAdvance;
 	private Boolean isPlannedVisit;
 	
+    /**
+     * Retrieves the final calculated price.
+     * @return The final price.
+     */
 	//getters
 	public Double getFinalPrice() {
 		return finalPrice;
 	}
+    /**
+     * Retrieves the full price before any discounts.
+     * @return The full price.
+     */
 	public Integer getFullPrice() {
 		return fullPrice;
 	}
+    /**
+     * Retrieves the discount for planned private or family visits.
+     * @return The discount for planned private or family visits.
+     */
 	public Integer getDiscountPrivateFamilyPlanned() {
 		return discountPrivateFamilyPlanned;
 	}
+    /**
+     * Retrieves the discount for unplanned private or family visits.
+     * @return The discount for unplanned private or family visits.
+     */
 	public Integer getDiscountPrivateFamilyUnplanned() {
 		return discountPrivateFamilyUnplanned;
 	}
+    /**
+     * Retrieves the discount for planned group visits.
+     * @return The discount for planned group visits.
+     */
 	public Integer getDiscountGroupPlanned() {
 		return discountGroupPlanned;
 	}
+    /**
+     * Retrieves the discount for unplanned group visits.
+     * @return The discount for unplanned group visits.
+     */
 	public Integer getDiscountGroupUnplanned() {
 		return discountGroupUnplanned;
 	}
+    /**
+     * Retrieves the discount for payment made in advance.
+     * @return The discount for payment made in advance.
+     */
 	public Integer getDiscountPaymentInAdvance() {
 		return discountPaymentInAdvance;
 	}
+    /**
+     * Retrieves whether the visit is for a guided group.
+     * @return True if the visit is for a guided group, otherwise false.
+     */
 	public Boolean getIsGuidedGroup() {
 		return isGuidedGroup;
 	}
+    /**
+     * Retrieves the number of visitors included in the visit.
+     * @return The number of visitors.
+     */
 	public Integer getVisitorsNumber() {
 		return visitorsNumber;
 	}
+    /**
+     * Retrieves whether the visit is paid in advance.
+     * @return True if the visit is paid in advance, otherwise false.
+     */
 	public Boolean getIsPaidInAdvance() {
 		return isPaidInAdvance;
 	}
+    /**
+     * Retrieves whether the visit is planned.
+     * @return True if the visit is planned, otherwise false.
+     */
 	public Boolean getIsPlannedVisit() {
 		return isPlannedVisit;
 	}
 	
-	
+    /**
+     * Sets whether the group is guided.
+     * @param isGuidedGroup True if the group is guided, otherwise false.
+     */
 	//setters
 	public void setIsGuidedGroup(Boolean isGuidedGroup) {
 		this.isGuidedGroup = isGuidedGroup;
 	}
+	
+    /**
+     * Sets the number of visitors for the visit.
+     * @param visitorsNumber The number of visitors.
+     */
 	public void setVisitorsNumber(Integer visitorsNumber) {
 		this.visitorsNumber = visitorsNumber;
 	}
+	
+    /**
+     * Sets whether the visit is paid in advance.
+     * @param isPaidInAdvance True if the visit is paid in advance, otherwise false.
+     */
 	public void setIsPaidInAdvance(Boolean isPaidInAdvance) {
 		this.isPaidInAdvance = isPaidInAdvance;
 	}
+	
+    /**
+     * Sets whether the visit is planned.
+     * @param isPlannedVisit True if the visit is planned, otherwise false.
+     */
 	public void setIsPlannedVisit(Boolean isPlannedVisit) {
 		this.isPlannedVisit = isPlannedVisit;
 	}
 	
+    /**
+     * Generates the final price for the visit based on the provided parameters.
+     * @return The calculated final price.
+     */
 	//public method for generating the final price
 	public Double generateFinalPrice() {
 		try {
@@ -113,6 +182,7 @@ public class PriceGenerator {
 		return finalPrice;
 	}
 		
+	
 	//private method that get and the prices from DB and set them
 	private void setPrices() {
 		try {

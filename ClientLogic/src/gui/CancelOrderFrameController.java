@@ -1,3 +1,7 @@
+/**
+ * The CancelOrderFrameController class controls the user interface for cancelling an order.
+ * It allows users to view order details and cancel the order if desired.
+ */
 package gui;
 
 import java.util.ArrayList;
@@ -58,7 +62,12 @@ public class CancelOrderFrameController {
     @FXML
     private Label txtVisitorsNum;
 
-    
+    /**
+     * Handles the event when the "Cancel order" button is pressed.
+     * Attempts to cancel the order and displays a response message.
+     * 
+     * @param event The ActionEvent triggered by pressing the "Cancel order" button.
+     */
     //Event for "Cancel order" button
     @FXML
     void pressCancelBtn(ActionEvent event) {
@@ -89,7 +98,13 @@ public class CancelOrderFrameController {
     	}
 
     }
-
+    
+    /**
+     * Handles the event when the "Close" button is pressed.
+     * Closes the current stage and returns to the traveller page.
+     * 
+     * @param event The ActionEvent triggered by pressing the "Close" button.
+     */
     //Event for "Close" button
     @FXML
     void pressCloseBtn(ActionEvent event) {
@@ -121,6 +136,11 @@ public class CancelOrderFrameController {
 		return order;
 	}
 	
+    /**
+     * Loads the order details into the user interface.
+     * 
+     * @param order The Order object containing the details to be displayed.
+     */
 	//set text to all fields
 		public void loadOrder(Order order) {
 			try {

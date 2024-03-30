@@ -1,3 +1,7 @@
+/**
+ * The controller class for the Invoice GUI.
+ * This class generates an invoice based on provided price details and displays it in the GUI.
+ */
 package gui;
 
 import java.text.DecimalFormat;
@@ -34,7 +38,12 @@ public class InvoiceController {
     @FXML
     private Text txtTotalPrice;
     
- 
+    
+    /**
+     * Generates an invoice based on the provided PriceGenerator object and displays it in the GUI.
+     *
+     * @param priceGenerator The PriceGenerator object containing price details.
+     */
     //load invoice
     public void genarateInvoice(PriceGenerator priceGenerator) {
     	try {

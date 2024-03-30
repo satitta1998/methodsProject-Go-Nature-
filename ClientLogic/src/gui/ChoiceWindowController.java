@@ -1,3 +1,7 @@
+/**
+ * The ChoiceWindowController class controls the user interface for making a choice between entering the waiting list or going back to choose another time.
+ * It allows users to enter the waiting list for a selected order or return to the previous screen to choose another time slot.
+ */
 package gui;
 
 import java.util.ArrayList;
@@ -24,12 +28,22 @@ public class ChoiceWindowController {
     
     private ArrayList<String> orderData;
     
+    /**
+     * Loads the order data into the user interface.
+     * 
+     * @param orderData The ArrayList containing the data of the selected order.
+     */
     public void loadData(ArrayList<String> orderData) {
     	this.orderData = orderData;
     	this.btnGoBack.setText("Go back and choose another time");
     }
     
-    
+    /**
+     * Handles the event when the "Enter waiting list" button is pressed.
+     * Attempts to enter the waiting list for the selected order and displays a response message.
+     * 
+     * @param event The ActionEvent triggered by pressing the "Enter waiting list" button.
+     */
     //Event for "Enter waiting list" button
     @FXML
     void pressEnterWaitingList(ActionEvent event) {
@@ -54,6 +68,13 @@ public class ChoiceWindowController {
     	}
     }
 
+    
+    /**
+     * Handles the event when the "Go back and choose another time" button is pressed.
+     * Closes the current stage and returns to the previous screen to choose another time slot.
+     * 
+     * @param event The ActionEvent triggered by pressing the "Go back and choose another time" button.
+     */
     //Event for "Go back and choose another time" button
     @FXML
     void pressGoBack(ActionEvent event) {

@@ -1,3 +1,7 @@
+/**
+ * Controller class for the Park Manager Reports Page GUI.
+ * This class handles user interactions and events related to generating reports for the park manager.
+ */
 package gui;
 
 import java.time.YearMonth;
@@ -11,9 +15,19 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.text.Text;
 
 public class ParkManagerReportsPageController {
-		
+	
+    /**
+     * Enumeration representing different types of reports.
+     * Each enum constant has a description associated with it.
+     */
 	public enum ReportsTypes {
+        /**
+         * The total number of visitors report - segmented according to the type of visit.
+         */
 	    TOTAL_VISITORS_NUMBER("The total number of visitors report - segmented according to the type of visit"),
+        /**
+         * Usage report: when was the park not fully occupied.
+         */
 	    NOT_FULLY_OCCUPIED_PARK("Usage report: when was the park not fully occupied");
 
 	    private final String description;
@@ -22,6 +36,10 @@ public class ParkManagerReportsPageController {
 	        this.description = description;
 	    }
 
+        /**
+         * Get the description of the report type.
+         * @return A string representing the description of the report type.
+         */
 	    public String getDescription() {
 	        return description;
 	    }
@@ -41,6 +59,10 @@ public class ParkManagerReportsPageController {
     
     private String parkName;
     
+    /**
+     * Loads data into the GUI elements.
+     * @param parkName The name of the park for which reports are generated.
+     */
     public void loadData (String parkName) {
     	try {
 			//1. Load park name
@@ -71,6 +93,11 @@ public class ParkManagerReportsPageController {
     	
     }
     
+    /**
+     * Handles the event when the "Create report" button is pressed.
+     * This method validates the selected report type, month, and year, and opens the corresponding report page.
+     * @param event The ActionEvent representing the button click event.
+     */
     //Event for "Create report" button
     @FXML
     void pressCreateReportBtn(ActionEvent event) {
@@ -134,6 +161,11 @@ public class ParkManagerReportsPageController {
 
     }
     
+    /**
+     * Handles the event when the "Back" button is pressed.
+     * This method navigates the user back to the Park Manager page.
+     * @param event The ActionEvent representing the button click event.
+     */
     //Event for "Back" button
     @FXML
     void pressBackBtn(ActionEvent event) {

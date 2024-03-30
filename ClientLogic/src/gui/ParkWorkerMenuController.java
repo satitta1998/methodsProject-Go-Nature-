@@ -1,3 +1,7 @@
+/**
+ * The ParkWorkerMenuController class controls the user interface for park worker functionalities.
+ * It handles user interactions and events related to park worker operations, such as entering the park, finding orders, getting invoices, performing exit registration, and logging out.
+ */
 package gui;
 
 import java.util.ArrayList;
@@ -59,7 +63,12 @@ public class ParkWorkerMenuController {
 	    @FXML
 	    private CheckBox ckbGuidedGroup, ckbPrivateFamVisit;
 
-	    
+
+	    /**
+	     * Loads data into the Park Worker Menu.
+	     *
+	     * @param parkName The name of the park where the worker is assigned.
+	     */
 	    //load data
 	    public void loadData(String parkName) {
 	    	try {
@@ -108,6 +117,11 @@ public class ParkWorkerMenuController {
 	    	}
 	    }
 	    
+	    /**
+	     * Handles the event when the "Enter the park" button in a planned visit is pressed.
+	     *
+	     * @param event The ActionEvent representing the button click event.
+	     */
 	    //Event for "Enter the park" button in planned visit
 	    @FXML
 	    void pressEnterParkPlannedBtn(ActionEvent event) {
@@ -142,7 +156,14 @@ public class ParkWorkerMenuController {
 
 	    }
 	    
-	  //Event for "Enter the park" button in unplanned visit
+	    /**
+	     * Handles the event when the "Enter the park" button in an unplanned visit is pressed.
+	     * This method checks if the invoice is obtained before allowing the visitors to enter the park.
+	     * If the invoice is obtained, it validates the visitor's ID and number of visitors, then sends the order to enter the park.
+	     *
+	     * @param event The ActionEvent representing the button click event.
+	     */
+	    //Event for "Enter the park" button in unplanned visit
 	    @FXML
 	    void pressEnterParkUnplannedBtn(ActionEvent event) {
 	    	try {
@@ -192,6 +213,12 @@ public class ParkWorkerMenuController {
 	    	}
 	    }
 
+	    /**
+	     * Handles the event when the "Find" button is pressed.
+	     * This method retrieves the order information based on the entered order number and displays it on the screen.
+	     *
+	     * @param event The ActionEvent representing the button click event.
+	     */
 	    //Event for "Find" button
 	    @FXML
 	    void pressFindBtn(ActionEvent event) {
@@ -238,7 +265,12 @@ public class ParkWorkerMenuController {
 	    	}
 	    }
 	    
-	    
+	    /**
+	     * Handles the event when the "Get Invoice" button for planned visits is pressed.
+	     * This method retrieves information about the order, calculates the final price, generates an invoice, and displays it in a separate window.
+	     *
+	     * @param event The ActionEvent representing the button click event.
+	     */
 	    //Event for "Get Invoice" planned visit button
 	    @FXML
 	    void pessGetInvoicePlanned(ActionEvent event) {
@@ -294,7 +326,13 @@ public class ParkWorkerMenuController {
 	    	}
 	    	
 	    }
-	       
+	    
+	    /**
+	     * Handles the event when the "Get Invoice" button for unplanned visits is pressed.
+	     * This method retrieves information about the order, validates the number of visitors and visitor ID, calculates the final price, generates an invoice, and displays it in a separate window.
+	     *
+	     * @param event The ActionEvent representing the button click event.
+	     */
 	    //Event for "Get Invoice" unplanned visit button
 	    @FXML
 	    void pessGetInvoiceUnplanned(ActionEvent event) {
@@ -362,6 +400,12 @@ public class ParkWorkerMenuController {
 	    	}
 	    }
 	    
+	    /**
+	     * Handles the event when the "Perform exit registration" button is pressed.
+	     * This method validates the visitor's ID for exit registration and performs the exit registration process.
+	     *
+	     * @param event The ActionEvent representing the button click event.
+	     */
 	    //Event for "Perform exit registration" button
 	    @FXML
 	    void pressPerformExitRegistration(ActionEvent event) {
@@ -408,6 +452,12 @@ public class ParkWorkerMenuController {
 	    	}
 	    }
 
+	    /**
+	     * Handles the event when the "Log out" button is pressed.
+	     * This method logs out the user by sending a request to the server and navigates the user to the home page.
+	     *
+	     * @param event The ActionEvent representing the button click event.
+	     */
 	    //Event for "Log out" button
 	    @FXML
 	    void pressLogOut(ActionEvent event) {
