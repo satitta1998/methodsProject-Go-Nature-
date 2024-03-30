@@ -3,7 +3,6 @@ import entity.NextPage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-//import javafx.scene.image.ImageView;
 
 public class NewHomePageController {
 
@@ -16,16 +15,12 @@ public class NewHomePageController {
     @FXML
     private Button btnLogin;
 
-
-    //@FXML
-    //private ImageView goIMG;
-
     
     //Event for "Log in as an employee"
     @FXML
     void pressLoginBtn(ActionEvent event) throws Exception {
     	try {
-        	NextPage page = new NextPage(event, "/gui/Login.fxml", "", "LoginController", "pressLoginBtn"); //need to add path and title
+        	NextPage page = new NextPage(event, "/gui/Login.fxml", "", "LoginController", "pressLoginBtn");
         	page.Next();
     	}catch (Exception e) {
     		System.out.println("Error in NewHomePageController: pressLoginBtn");
@@ -35,14 +30,14 @@ public class NewHomePageController {
 
     //Event for "Identify as a traveller"
     @FXML
-    void pressIdentifyBtn(ActionEvent event) throws Exception {    	
-    	try {
-    		NextPage page = new NextPage(event, "/gui/IdentifyPage.fxml", "", "IdentifyPageController", "pressIdentifyBtn");  //need to add path and title
-        	page.Next();
-    	}catch (Exception e) {
-    		System.out.println("Error in NewHomePageController: pressIdentifyBtn");
-    		System.out.println(e.getMessage());
-    	}
+    void pressIdentifyBtn(ActionEvent event) throws Exception {
+        try {
+            NextPage page = new NextPage(event, "/gui/IdentifyPage.fxml", "Identify Page", "IdentifyPageController", "pressIdentifyBtn"); 
+            page.Next();
+        }catch (Exception e) {
+            System.out.println("Error in NewHomePageController: pressIdentifyBtn");
+            System.out.println(e.getMessage());
+        }
     }
 
     

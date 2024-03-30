@@ -16,7 +16,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Text fill="#196337" layoutX="32.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter ip address and port number of server:" wrappingWidth="271.5236053466797">
+      <Text fill="#196337" layoutX="32.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter ip address and port number of server:" wrappingWidth="271.5236053466797">
          <font>
             <Font size="14.0" />
          </font>
@@ -26,7 +26,7 @@
       <TextField fx:id="txtIpAddress" layoutX="93.0" layoutY="224.0" promptText="Ip address" />
       <TextField fx:id="txtPortNumber" layoutX="93.0" layoutY="264.0" promptText="Port number" />
       <Button id="btnStudentInfo" fx:id="btnConnectToServer" layoutX="114.0" layoutY="303.0" mnemonicParsing="false" onAction="#connectToServer" text="Connect to server" />
-      <Text fx:id="errorTxt" fill="#f20909" layoutX="15.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="305.99999737739563" />
+      <Text fx:id="errorTxt" fill="#f20909" layoutX="15.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="305.99999737739563" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="93.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Pictures/go_Nature_logo-removebg-preview.png" />

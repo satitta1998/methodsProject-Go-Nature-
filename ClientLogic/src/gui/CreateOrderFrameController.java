@@ -1,3 +1,7 @@
+/**
+ * The CreateOrderFrameController class controls the user interface for creating orders, providing functionality
+ * to load park names data, select visit dates and times, enter visitor information, and create new orders.
+ */
 package gui;
 
 import java.time.LocalDate;
@@ -57,6 +61,9 @@ public class CreateOrderFrameController {
     @FXML
     private TextField txtPhoneNumber;
     
+    /**
+     * Loads data for the create order frame, including parks list, available visit days, visit times, and guided group status.
+     */
     //load data
     public void loadData() {
     	
@@ -129,6 +136,12 @@ public class CreateOrderFrameController {
     	
     }
     
+    
+    /**
+     * Handles the event when the "Close" button is pressed.
+     * 
+     * @param event The ActionEvent triggered by the button press.
+     */
     //Event for "Close" button
     @FXML
     void pressCloseBtn(ActionEvent event) {
@@ -141,12 +154,17 @@ public class CreateOrderFrameController {
 
     }
 
+    /**
+     * Handles the event when the "Create" button is pressed.
+     * 
+     * @param event The ActionEvent triggered by the button press.
+     */
     //Event for "Create" button
     @FXML
     void pressCreateBtn(ActionEvent event) {
     	try {
 			String selectedTimeOption, selectedDate;
-			String visitorsNum, phoneNum, paymentInAdvance;
+			String email, visitorsNum, phoneNum, paymentInAdvance;
 			ArrayList<String> orderArr;
 			Integer visitorsNumInt = 0;
 
@@ -165,20 +183,35 @@ public class CreateOrderFrameController {
 			try {
 				selectedTimeOption = this.selectTimeCmb.getValue();
 				selectedDate = SelectDayDp.getValue().toString();
-				
+
 				visitorsNum = this.txtVisitorsNum.getText();
-				phoneNum = this.txtPhoneNumber.getText();
-				// Check if the number of visitors and phone number strings contain any digit
-		        Pattern pattern = Pattern.compile("\\d");
-		        Matcher matcherVisitorsNum = pattern.matcher(visitorsNum);
-		        Matcher matcherPhoneNum = pattern.matcher(phoneNum);
-		        if (matcherVisitorsNum.find() && matcherPhoneNum.find())
-		        	System.out.println("String contains numbers.");
-		        else {
-		        	System.out.println("String does not contain numbers.");
-		        	throw new Exception("You have entered wrong format information. Check again.");
-		        }
-		          
+                phoneNum = this.txtPhoneNumber.getText();
+                email = this.txtEmail.getText();
+                // Check if the number of visitors and phone number strings contain any digit
+                Pattern pattern = Pattern.compile("\\d+");
+                Matcher matcherVisitorsNum = pattern.matcher(visitorsNum);
+                Matcher matcherPhoneNum = pattern.matcher(phoneNum);
+                boolean visitorsContainsOnlyDigits = matcherVisitorsNum.matches();
+                boolean phoneContainsOnlyDigits = matcherPhoneNum.matches();
+
+                if (visitorsContainsOnlyDigits && phoneContainsOnlyDigits)
+                    System.out.println("String contains numbers.");
+                else {
+                    System.out.println("String does not contain numbers.");
+                    throw new Exception("You have entered wrong format information. Check again.");
+                }
+                // Check if email template is valid;
+                Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9+&*-]+(?:\\.[a-zA-Z0-9+&-]+)@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
+                Matcher matcher = emailPattern.matcher(email);
+                boolean isValidEmail = matcher.matches();
+
+                if (isValidEmail)
+                    System.out.println("Please enter a valid email, for example: \"example@example.com\".");
+                else {
+                    System.out.println("String does not contain numbers.");
+                    throw new Exception("Please enter a valid email, for example: \"example@example.com\".");
+                }
+
 				if(Integer.valueOf(visitorsNum) < 1)
 					throw new Exception("The number of visitors should be greater then 0.");
 				
@@ -210,7 +243,6 @@ public class CreateOrderFrameController {
 
 			if(ChatClient.dataFromServer.get(0).equals("-1")) {
 				//////enter wait list or choose other date and time
-				//this.lblResult.setText(new String("Unfortunately, order not created!"));
 				SecondPage page = new SecondPage(event, "/gui/ChoiceWindow.fxml", "Choice window", "ChoiceWindowController", "pressCreateBtn", orderArr); 
 	        	page.openSecondPage();
 			}

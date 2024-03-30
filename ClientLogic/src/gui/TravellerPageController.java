@@ -64,10 +64,10 @@ public class TravellerPageController {
     //Event for "Back" button
     @FXML
     void pressBackBtn(ActionEvent event) throws Exception {
-    	//set visitor ID as ""
-    	ChatClient.visitorID = "";
-    	NextPage page = new NextPage(event, "/gui/NewHomePage.fxml", "Home Page", "NewHomePageController", "pressBackBtn"); 
-    	page.Next();
+        //set visitor ID as ""
+        ChatClient.visitorID = "";
+        NextPage page = new NextPage(event, "/gui/IdentifyPage.fxml", "Identify Page", "IdentifyPageController", "pressIdentifyBtn"); 
+        page.Next();
     }
     
 	// Event for "Exit" button

@@ -43,7 +43,6 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btnRefresh" layoutX="402.0" layoutY="290.0" mnemonicParsing="false" onAction="#pressRefreshbtn" text="Refresh" />
       <Button fx:id="btnSendToApprove" layoutX="50.0" layoutY="343.0" mnemonicParsing="false" onAction="#pressSendToApprove" text="Send to approval" />
       <Text fx:id="availableSpaceTxt" layoutX="260.0" layoutY="309.0" stroke="#a16666" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="200.0" />
       <Button fx:id="btnCreateReports" layoutX="234.0" layoutY="343.0" mnemonicParsing="false" onAction="#pressCreateReports" text="Create Reports" />

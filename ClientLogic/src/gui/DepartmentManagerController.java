@@ -1,9 +1,10 @@
+/**
+ * The DepartmentManagerController class controls the user interface for department manager, providing functionality
+ * to load park data, approve or deny new park information.
+ */
 package gui;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import client.ChatClient;
 import client.ClientUI;
 import entity.NextPage;
@@ -15,40 +16,44 @@ import javafx.scene.text.Text;
 public class DepartmentManagerController {
 
 	private String parkName;
+
+	@FXML
+	private Text promptTxt;
+
+	@FXML
+	private Text availableSpaceTxt;
+
+	@FXML
+	private Button btnApprove;
+
+	@FXML
+	private Button btnDeny;
+
+	@FXML
+	private Button btnBack;
+
+	@FXML
+	private Text closesParkTxt;
+
+	@FXML
+	private Text configureGapTxt;
+
+	@FXML
+	private Text maxCapacityTxt;
+
+	Boolean infoToApprove = true;
 	
-    @FXML
-    private Text promptTxt;
-    
-    @FXML
-    private Text availableSpaceTxt;
-
-    @FXML
-    private Button btnApprove;
-
-    @FXML
-    private Button btnDeny;
-
-    @FXML
-    private Button btnBack;
-
-    @FXML
-    private Button btnRefresh;
-
-    @FXML
-    private Text closesParkTxt;
-
-    @FXML
-    private Text configureGapTxt;
-
-    @FXML
-    private Text maxCapacityTxt;
-    
-  //load data
-    public void loadData(String parkName) 
-    {
-    	try {
-    		this.parkName = parkName;
-    		ArrayList<Object> arrmsg = new ArrayList<Object>();
+    /**
+     * Loads data for the department manager interface, including available space in the park and new park information
+     * pending approval.
+     * 
+     * @param parkName The name of the park for which data is being loaded.
+     */
+	// load data
+	public void loadData(String parkName) {
+		try {
+			this.parkName = parkName;
+			ArrayList<Object> arrmsg = new ArrayList<Object>();
 			arrmsg.add(new String("AvilableSpaceGet"));
 			arrmsg.add(new String("String"));
 			arrmsg.add(new String(parkName));
@@ -56,217 +61,154 @@ public class DepartmentManagerController {
 
 			if (ChatClient.dataFromServer.equals(null))
 				throw new NullPointerException("This park doesn't exists.");
-			
-			Integer spaceInPark = (Integer.parseInt(ChatClient.dataFromServer.get(0)) - Integer.parseInt(ChatClient.dataFromServer.get(1)));
+
+			Integer spaceInPark = (Integer.parseInt(ChatClient.dataFromServer.get(0))
+					- Integer.parseInt(ChatClient.dataFromServer.get(1)));
 			availableSpaceTxt.setText(Integer.toString(spaceInPark));
-    		
-    		
-    		//load data
-    		//check if there are new information to approve
-    		arrmsg = new ArrayList<Object>();
+
+			// load data
+			// check if there are new information to approve
+			arrmsg = new ArrayList<Object>();
 			arrmsg.add(new String("ParkCheckIfApproveRequired"));
 			arrmsg.add(new String(parkName));
-			///////////OPEN///////////////////
 			ClientUI.chat.accept(arrmsg);
-			
-			/////////CHECK//////////////
-			//ChatClient.result = false;
-			
-			//show the information 
-    		if(ChatClient.result == true) {
+
+			// show the information
+			if (ChatClient.result == true) {
 				arrmsg.clear();
+				arrmsg = new ArrayList<Object>();
 				arrmsg.add(new String("ParkNewParamsGet"));
 				arrmsg.add(new String("String"));
 				arrmsg.add(new String(parkName));
 				ClientUI.chat.accept(arrmsg);
-				
+
 				if (ChatClient.dataFromServer.equals(null))
 					throw new NullPointerException("This park doesn't exists.");
-				
-				
+
 				maxCapacityTxt.setText(ChatClient.dataFromServer.get(0));
 				configureGapTxt.setText(ChatClient.dataFromServer.get(1));
 				closesParkTxt.setText(ChatClient.dataFromServer.get(2));
-		        spaceInPark = (Integer.parseInt(ChatClient.dataFromServer.get(0)) - Integer.parseInt(ChatClient.dataFromServer.get(3)));
-		        availableSpaceTxt.setText(Integer.toString(spaceInPark));
-    		}else {
-    			
-    			//show prompt text
-    			this.promptTxt.setText("There are no new information to approve");
-    		}
-	        
-    	}catch (NullPointerException e) {
-    		System.out.println(e.getMessage());
-    	}catch (Exception e) {
+			} else {
+
+				// show prompt text
+				this.promptTxt.setText("There are no new information to approve");
+				infoToApprove = false;
+			}
+
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
 			System.out.println("Error in DepartmentManagerController: loadData");
 			System.out.println(e.getMessage());
-    }
-   }
-    
-    @FXML
-    void pressApprove(ActionEvent event) {
-    	try {
-    		//send information to change the db
-    		ArrayList<Object> arrmsg = new ArrayList<Object>();
-    		ArrayList<String> updatePark = new ArrayList<String>();
-    		arrmsg.add(new String("ParkCorrentParamsUpdate"));
-    		arrmsg.add(new String("ArrayList<String>"));
-    		updatePark.add(new String(parkName));
-    		updatePark.add(new String(maxCapacityTxt.getText()));
-    		updatePark.add(new String(configureGapTxt.getText()));
-    		updatePark.add(new String(closesParkTxt.getText()));
-    		updatePark.add(new String("0"));
-    		updatePark.add(new String("0"));
-    		updatePark.add(new String("0"));
-    		arrmsg.add(updatePark);
-    		///////////OPEN///////////////
-    		ClientUI.chat.accept(arrmsg);
-    		
-    		/////////////CHECK//////////////
-    		//ChatClient.result = true;
-    		
-			
-			if (ChatClient.result == false)
-				throw new NullPointerException("Update manager doesn't succesful.");
-			else
-				this.promptTxt.setText("Approved successfully!");
-    	}catch (NullPointerException e) {
-    		System.out.println(e.getMessage());
-    	}catch (Exception e) {
+		}
+	}
+
+    /**
+     * Handles the event when the "Approve" button is pressed, updating park parameters in the database
+     * based on the approved information.
+     * 
+     * @param event The ActionEvent triggered by the button press.
+     */
+	@FXML
+	void pressApprove(ActionEvent event) {
+		try {
+			if (infoToApprove) {
+				// send information to change the db
+				ArrayList<Object> arrmsg = new ArrayList<Object>();
+				ArrayList<String> updatePark = new ArrayList<String>();
+				arrmsg.add(new String("ParkCurrentParamsUpdate"));
+				arrmsg.add(new String("ArrayList<String>"));
+				updatePark.add(new String(parkName));
+				updatePark.add(new String(maxCapacityTxt.getText()));
+				updatePark.add(new String(configureGapTxt.getText()));
+				updatePark.add(new String(closesParkTxt.getText()));
+				arrmsg.add(updatePark);
+				ClientUI.chat.accept(arrmsg);
+
+				if (ChatClient.result == false)
+					throw new NullPointerException("Update manager doesn't succesful.");
+				else
+					this.promptTxt.setText("Approved successfully!");
+				maxCapacityTxt.setText("");
+				configureGapTxt.setText("");
+				closesParkTxt.setText("");
+			}
+
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
 			System.out.println("Error in DepartmentManagerController: pressApprove");
 			System.out.println(e.getMessage());
-    }
-    }
+		}
+	}
 
-    @FXML
-    void pressDeny(ActionEvent event) {
-    	try {
-    		
-    		// 1. Check capacity
-    		String checkCapacity = this.maxCapacityTxt.getText();
-    		if (checkCapacity.trim().isEmpty()) {
-    			this.promptTxt.setText("String for capacity cant be empty");
-    		} else {
-    			// Check if the string contains any digit
-    			Pattern pattern_cap = Pattern.compile("\\d");
-    			Matcher matcher_cap = pattern_cap.matcher(checkCapacity);
-    			if (!matcher_cap.find())
-    				throw new IllegalArgumentException("capacity should contain only numbers");
+	
+    /**
+     * Handles the event when the "Deny" button is pressed, reverting changes made by denying
+     * the new park information.
+     * 
+     * @param event The ActionEvent triggered by the button press.
+     */
+	@FXML
+	void pressDeny(ActionEvent event) {
+		try {
+			if (infoToApprove) {
+				ArrayList<Object> arrmsg = new ArrayList<Object>();
+				ArrayList<String> updatePark = new ArrayList<String>();
+				arrmsg.add(new String("ParkCurrentParamsGet"));
+				arrmsg.add(new String("String"));
+				arrmsg.add(new String(parkName));
+				ClientUI.chat.accept(arrmsg);
 
-    			if (Integer.parseInt(checkCapacity) < 1)
-    				throw new IllegalArgumentException("capacity should be greater then 0");
-    			// 2. Check the gap
-    			String checkGap = this.configureGapTxt.getText();
-    			if (checkGap.trim().isEmpty()) {
-    				this.promptTxt.setText("String for gap cant be empty");
-    			} else {
-    				// Check if the string contains any digit
-    				Pattern pattern_gap = Pattern.compile("\\d");
-    				Matcher matcher_gap = pattern_gap.matcher(checkGap);
-    				if (!matcher_gap.find())
-    					throw new IllegalArgumentException("gap should contain only numbers");
+				if (ChatClient.dataFromServer.equals(null))
+					throw new NullPointerException("This park doesn't exists.");
 
-    				if (Integer.parseInt(checkGap) < 1)
-    					throw new IllegalArgumentException("gap should be greater then 0");
-    			}
+				updatePark.add(new String(parkName));
+				updatePark.add(new String(ChatClient.dataFromServer.get(0))); // Capacity
+				updatePark.add(new String(ChatClient.dataFromServer.get(1))); // Gap
+				updatePark.add(new String(ChatClient.dataFromServer.get(2))); // Stay time
 
-    			// 3. Check time of stay
-    			String checkTimeOfStay = this.closesParkTxt.getText();
-    			if (checkTimeOfStay.trim().isEmpty()) {
-    				this.promptTxt.setText("String for time of stay cant be empty");
-    			} else {
-    				// Check if the string contains any digit
-    				Pattern pattern_tos = Pattern.compile("\\d");
-    				Matcher matcher_tos = pattern_tos.matcher(checkTimeOfStay);
-    				if (!matcher_tos.find())
-    					throw new IllegalArgumentException("time of stay should contain only numbers");
+				arrmsg.clear();
+				arrmsg = new ArrayList<Object>();
+				arrmsg.add(new String("ParkCurrentParamsUpdate"));
+				arrmsg.add(new String("ArrayList<String>"));
+				arrmsg.add(updatePark);
+				ClientUI.chat.accept(arrmsg);
 
-    				if (Integer.parseInt(checkTimeOfStay) < 1)
-    					throw new IllegalArgumentException("time of stay should be greater then 0");
-    			}
-    		}
-    		ArrayList<Object> arrmsg = new ArrayList<Object>();
-    		ArrayList<String> updatePark = new ArrayList<String>();
-    		arrmsg.add(new String("ParkCurrentParamsGet"));
-            arrmsg.add(new String("String"));
-            arrmsg.add(new String(parkName));
-            ClientUI.chat.accept(arrmsg);
+				if (ChatClient.result == false)
+					throw new NullPointerException("Update Park info woesn't succesful.");
+				else
+					this.promptTxt.setText("Denied successfully!");
+					maxCapacityTxt.setText("");
+					configureGapTxt.setText("");
+					closesParkTxt.setText("");
+			}
 
-            if (ChatClient.dataFromServer.equals(null))
-                throw new NullPointerException("This park doesn't exists.");
-            
-    		updatePark.add(new String(parkName));
-    		updatePark.add(new String(ChatClient.dataFromServer.get(0))); //Capacity
-    		updatePark.add(new String(ChatClient.dataFromServer.get(1)));	//Gap
-    		updatePark.add(new String(ChatClient.dataFromServer.get(2))); //Stay time
-    		updatePark.add(new String("0"));
-    		updatePark.add(new String("0"));
-    		updatePark.add(new String("0"));
-    		
-    		arrmsg.clear();
-    		arrmsg.add(new String("ParkCurrentParamsUpdate"));
-    		arrmsg.add(new String("ArrayList<String>"));
-    		arrmsg.add(updatePark);
-    		//////////////////OPEN/////////////
-			ClientUI.chat.accept(arrmsg);
-    		
-    		//////////CHEK/////////////
-    		//ChatClient.result = true;
-    		
-			if (ChatClient.result == false)
-				throw new NullPointerException("Update Park info woesn't succesful.");
-			else
-				this.promptTxt.setText("Denied successfully!");
-    	}catch (IllegalArgumentException e) {
-    		this.promptTxt.setText(e.getMessage());
-    	}catch (NullPointerException e) {
-    		this.promptTxt.setText(e.getMessage());
-    	}catch (Exception e) {
+		} catch (IllegalArgumentException e) {
+			this.promptTxt.setText(e.getMessage());
+		} catch (NullPointerException e) {
+			this.promptTxt.setText(e.getMessage());
+		} catch (Exception e) {
 			System.out.println("Error in DepartmentManagerController: pressApprove");
 			System.out.println(e.getMessage());
-    }
-    }
-
-    @FXML
-    void pressBack(ActionEvent event) {
-    	try {
-        	NextPage page = new NextPage(event, "/gui/DepartmentManagerMenu.fxml", "Department Manager Menu", "DepartmentManagerMenuController", "pressLogoutBtn", parkName); 
-        	page.Next();
-    	}catch (Exception e) {
-    		System.out.println("Error in DepartmentManagerController: pressLogOut");
-    		System.out.println(e.getMessage());
-    	}
-    }
-
-    @FXML
-    void pressRefreshbtn(ActionEvent event) {
-    	try {
-    		ArrayList<Object> arrmsg = new ArrayList<Object>();
-			arrmsg.add(new String("AvilableSpaceGet"));
-			arrmsg.add(new String(parkName));
-			arrmsg.add(new String("Get"));
-			
-			//////////OPEN///////////////
-			ClientUI.chat.accept(arrmsg);
-			
-			//////////CHECK///////////
-			//ChatClient.dataFromServer = new ArrayList<String>();
-			//ChatClient.dataFromServer.add(new String("15"));
-			//ChatClient.dataFromServer.add(new String("5"));
-			
-			if (ChatClient.dataFromServer.equals(null))
-				throw new NullPointerException("This park doesn't exists.");
-			
-			Integer spaceInPark = (Integer.parseInt(ChatClient.dataFromServer.get(0)) - Integer.parseInt(ChatClient.dataFromServer.get(1)));
-			availableSpaceTxt.setText(Integer.toString(spaceInPark));
-    	}catch (NullPointerException e) {
-    		this.promptTxt.setText(e.getMessage());
-    	}catch (Exception e) {
-			System.out.println("Error in DepartmentManagerController: pressRefreshbtn");
+		}
+	}
+	
+    /**
+     * Handles the event when the "Back" button is pressed, navigating back to the department manager menu.
+     * 
+     * @param event The ActionEvent triggered by the button press.
+     */
+	@FXML
+	void pressBack(ActionEvent event) {
+		try {
+			NextPage page = new NextPage(event, "/gui/DepartmentManagerMenu.fxml", "Department Manager Menu",
+					"DepartmentManagerMenuController", "pressLogoutBtn", parkName);
+			page.Next();
+		} catch (Exception e) {
+			System.out.println("Error in DepartmentManagerController: pressLogOut");
 			System.out.println(e.getMessage());
-    }
-   }
+		}
+	}
 
 }
-
-

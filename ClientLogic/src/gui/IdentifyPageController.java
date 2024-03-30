@@ -1,6 +1,5 @@
 package gui;
 
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,22 +33,24 @@ public class IdentifyPageController {
 	    void pressIdentifyBtn(ActionEvent event) {
 	    	try {
 	    		String identNum = this.identify_id.getText();
-	    		if (identNum.trim().isEmpty())
-	    			throw new NullPointerException("You should enter an identification number.");
 	    		
-				// Check if the string contains any digit
-		        Pattern pattern = Pattern.compile("\\d");
-		        Matcher matcher = pattern.matcher(identNum);  
-		        if (!matcher.find())
-		        	throw new IllegalArgumentException("Identification number should contain only numbers.");
+	    		// Check if the string contains any digit
+	            Pattern pattern = Pattern.compile("\\d+");
+	            Matcher matcher = pattern.matcher(identNum);
+	            boolean containsOnlyDigits = matcher.matches();
+	            if (containsOnlyDigits) {
+	                ChatClient.visitorID = identNum;
+	                NextPage page = new NextPage(event, "/gui/TravellerPage.fxml", "Traveller Page",
+	                        "TravellerPageController", "pressIdentifyBtn");
+	                page.Next();
+	            }else {
+	                throw new IllegalArgumentException("Identification number not valid.");
+	            }
 		        
 		        ChatClient.visitorID = identNum;
 		        NextPage page = new NextPage(event, "/gui/TravellerPage.fxml", "Traveller Page", "TravellerPageController", "pressIdentifyBtn");
 		    	page.Next();
 		    	
-	    	}catch (NullPointerException e) {
-    			System.out.println("Identification number not entered.");
-    			this.errorTxt.setText(e.getMessage());
 	    	}catch (IllegalArgumentException e) {
 	    		System.out.println("Identification number wrong.");
 	    		this.errorTxt.setText(e.getMessage());

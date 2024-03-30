@@ -23,14 +23,14 @@
       </Text>
       <Button id="btnExit" fx:id="btnLogout" layoutX="248.0" layoutY="370.0" mnemonicParsing="false" onAction="#pressLogoutBtn" text="Logout" />
       <Text layoutX="100.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Created By i-Recreation Inc." />
-      <Button fx:id="btnGuideReg" layoutX="108.0" layoutY="270.0" mnemonicParsing="false" onAction="#pressGuideRegBtn" prefHeight="27.0" prefWidth="120.0" text="Guide Registration" />
+      <Button fx:id="btnGuideReg" layoutX="108.0" layoutY="273.0" mnemonicParsing="false" onAction="#pressGuideRegBtn" prefHeight="27.0" prefWidth="120.0" text="Guide Registration" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="93.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Pictures/go_Nature_logo-removebg-preview.png" />
          </image>
       </ImageView>
       <TextField fx:id="guide_id" alignment="TOP_LEFT" layoutX="93.0" layoutY="230.0" prefHeight="26.0" prefWidth="150.0" promptText="Guide Id" />
-      <Text layoutX="110.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter guide id:" />
-      <Text fx:id="errorTxt" layoutX="14.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="310.9151916503906" />
+      <Text fill="#287947" layoutX="110.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter guide id:" />
+      <Text fx:id="errorTxt" fill="#196337" layoutX="14.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="310.9151916503906" />
    </children>
 </AnchorPane>
