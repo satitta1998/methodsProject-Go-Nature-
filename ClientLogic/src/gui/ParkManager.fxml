@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="450.0" prefWidth="500.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ParkManagerController">
+<AnchorPane prefHeight="480.0" prefWidth="500.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ParkManagerController">
    <children>
       <Label layoutX="235.0" layoutY="44.0" prefHeight="30.0" prefWidth="188.0" text="Park Manager Menu" textFill="#1e5d38">
          <font>
@@ -21,7 +21,7 @@
          </font></Label>
       <TextField fx:id="txtCapacity" layoutX="260.0" layoutY="141.0" prefHeight="25.0" prefWidth="200.0" promptText="Capacity int park" />
       <TextField fx:id="txtGapInPark" layoutX="260.0" layoutY="191.0" prefHeight="25.0" prefWidth="200.0" promptText="Gap in the park" />
-      <Button fx:id="btnLogout" layoutX="402.0" layoutY="343.0" mnemonicParsing="false" onAction="#pressLogOut" text="Logout" />
+      <Button fx:id="btnLogout" layoutX="402.0" layoutY="370.0" mnemonicParsing="false" onAction="#pressLogOut" text="Logout" />
       <ImageView fitHeight="121.0" fitWidth="135.0" layoutX="29.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Pictures/go_Nature_logo-removebg-preview.png" />
@@ -43,12 +43,12 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btnSendToApprove" layoutX="50.0" layoutY="343.0" mnemonicParsing="false" onAction="#pressSendToApprove" text="Send to approval" />
+      <Button fx:id="btnSendToApprove" layoutX="50.0" layoutY="370.0" mnemonicParsing="false" onAction="#pressSendToApprove" text="Send to approval" />
       <Text fx:id="availableSpaceTxt" layoutX="260.0" layoutY="309.0" stroke="#a16666" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="200.0" />
-      <Button fx:id="btnCreateReports" layoutX="234.0" layoutY="343.0" mnemonicParsing="false" onAction="#pressCreateReports" text="Create Reports" />
+      <Button fx:id="btnCreateReports" layoutX="234.0" layoutY="370.0" mnemonicParsing="false" onAction="#pressCreateReports" text="Create Reports" />
       <TextField fx:id="txtTimeOfstay" layoutX="260.0" layoutY="241.0" prefHeight="25.0" prefWidth="200.0" promptText="Time of stay in minutes*" />
-      <Label fx:id="lblErrorMsg" layoutX="201.0" layoutY="111.0" prefHeight="18.0" prefWidth="246.0" textFill="RED" />
-      <Label layoutX="115.0" layoutY="390.0" text="* Time need to be in minutes: &quot;120 means 2 hours&quot;" textFill="#1e5d38" />
-      <Text fill="#1e5d38" layoutX="60.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For any technical question contact us by email: helpdesk@gonature.co.il" />
+      <Label fx:id="lblErrorMsg" layoutX="44.0" layoutY="331.0" prefHeight="18.0" prefWidth="414.0" textAlignment="CENTER" textFill="RED" />
+      <Label layoutX="115.0" layoutY="419.0" text="* Time need to be in minutes: &quot;120 means 2 hours&quot;" textFill="#1e5d38" />
+      <Text fill="#1e5d38" layoutX="60.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For any technical question contact us by email: helpdesk@gonature.co.il" />
    </children>
 </AnchorPane>

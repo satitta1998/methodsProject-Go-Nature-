@@ -172,8 +172,11 @@ public class ParkManagerController {
 				
 			if (ChatClient.result == false)
 				throw new NullPointerException("Update manager doesn't succesful.");
-			else
-				this.lblErrorMsg.setText("The information sent to confirmation.");
+			else {
+                this.lblErrorMsg.setText("The information sent to confirmation.");
+                this.txtCapacity.setText("");
+                this.txtGapInPark.setText("");
+                this.txtTimeOfstay.setText("");}
 			}catch (NullPointerException e) {
 				this.lblErrorMsg.setText(e.getMessage());
 			}catch (IllegalArgumentException e) {

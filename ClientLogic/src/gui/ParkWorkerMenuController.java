@@ -410,7 +410,8 @@ public class ParkWorkerMenuController {
 	    @FXML
 	    void pressPerformExitRegistration(ActionEvent event) {
 	    	try {
-	    		String exitRegNum = this.txtExitRegNumber.getText();
+	    		String exitRegNum = "";
+	    		exitRegNum = this.txtExitRegNumber.getText();
 	    		
 	    		if(exitRegNum.trim().isEmpty()) {
 	    			errorCaseExit("String visitors' ID for exit registration is empty","You must enter a visitors' ID for exit registration.");

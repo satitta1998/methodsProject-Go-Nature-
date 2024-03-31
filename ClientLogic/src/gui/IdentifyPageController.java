@@ -57,11 +57,7 @@ public class IdentifyPageController {
 	            }else {
 	                throw new IllegalArgumentException("Identification number not valid.");
 	            }
-		        
-		        ChatClient.visitorID = identNum;
-		        NextPage page = new NextPage(event, "/gui/TravellerPage.fxml", "Traveller Page", "TravellerPageController", "pressIdentifyBtn");
-		    	page.Next();
-		    	
+		        		    	
 	    	}catch (IllegalArgumentException e) {
 	    		System.out.println("Identification number wrong.");
 	    		this.errorTxt.setText(e.getMessage());

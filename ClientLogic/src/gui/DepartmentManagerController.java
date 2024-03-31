@@ -70,6 +70,7 @@ public class DepartmentManagerController {
 			// check if there are new information to approve
 			arrmsg = new ArrayList<Object>();
 			arrmsg.add(new String("ParkCheckIfApproveRequired"));
+			arrmsg.add(new String("String"));
 			arrmsg.add(new String(parkName));
 			ClientUI.chat.accept(arrmsg);
 
@@ -112,27 +113,38 @@ public class DepartmentManagerController {
 	@FXML
 	void pressApprove(ActionEvent event) {
 		try {
-			if (infoToApprove) {
-				// send information to change the db
-				ArrayList<Object> arrmsg = new ArrayList<Object>();
-				ArrayList<String> updatePark = new ArrayList<String>();
-				arrmsg.add(new String("ParkCurrentParamsUpdate"));
-				arrmsg.add(new String("ArrayList<String>"));
-				updatePark.add(new String(parkName));
-				updatePark.add(new String(maxCapacityTxt.getText()));
-				updatePark.add(new String(configureGapTxt.getText()));
-				updatePark.add(new String(closesParkTxt.getText()));
-				arrmsg.add(updatePark);
-				ClientUI.chat.accept(arrmsg);
+			ArrayList<Object> arrmsg = new ArrayList<Object>();
+            arrmsg.add(new String("ParkCheckIfApproveRequired"));
+            arrmsg.add(new String("String"));
+            arrmsg.add(new String(parkName));
+            ClientUI.chat.accept(arrmsg);
+            if (ChatClient.result == false)
+                this.promptTxt.setText("No change to approve");
+            else
+            {
 
-				if (ChatClient.result == false)
-					throw new NullPointerException("Update manager doesn't succesful.");
-				else
-					this.promptTxt.setText("Approved successfully!");
-				maxCapacityTxt.setText("");
-				configureGapTxt.setText("");
-				closesParkTxt.setText("");
-			}
+                if (infoToApprove) {
+                    // send information to change the db
+                    arrmsg = new ArrayList<Object>();
+                    ArrayList<String> updatePark = new ArrayList<String>();
+                    arrmsg.add(new String("ParkCurrentParamsUpdate"));
+                    arrmsg.add(new String("ArrayList<String>"));
+                    updatePark.add(new String(parkName));
+                    updatePark.add(new String(maxCapacityTxt.getText()));
+                    updatePark.add(new String(configureGapTxt.getText()));
+                    updatePark.add(new String(closesParkTxt.getText()));
+                    arrmsg.add(updatePark);
+                    ClientUI.chat.accept(arrmsg);
+
+                    if (ChatClient.result == false)
+                        throw new NullPointerException("Update manager doesn't succesful.");
+                    else
+                        this.promptTxt.setText("Approved successfully!");
+                    maxCapacityTxt.setText("");
+                    configureGapTxt.setText("");
+                    closesParkTxt.setText("");
+                }
+            }
 
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
@@ -152,37 +164,46 @@ public class DepartmentManagerController {
 	@FXML
 	void pressDeny(ActionEvent event) {
 		try {
-			if (infoToApprove) {
-				ArrayList<Object> arrmsg = new ArrayList<Object>();
-				ArrayList<String> updatePark = new ArrayList<String>();
-				arrmsg.add(new String("ParkCurrentParamsGet"));
-				arrmsg.add(new String("String"));
-				arrmsg.add(new String(parkName));
-				ClientUI.chat.accept(arrmsg);
+			ArrayList<Object> arrmsg = new ArrayList<Object>();
+            arrmsg.add(new String("ParkCheckIfApproveRequired"));
+            arrmsg.add(new String(parkName));
+            ClientUI.chat.accept(arrmsg);
+            if (ChatClient.result == false)
+                this.promptTxt.setText("Nothhing to deny");
+            else
+            {
+                if (infoToApprove) {
+                    arrmsg = new ArrayList<Object>();
+                    ArrayList<String> updatePark = new ArrayList<String>();
+                    arrmsg.add(new String("ParkCurrentParamsGet"));
+                    arrmsg.add(new String("String"));
+                    arrmsg.add(new String(parkName));
+                    ClientUI.chat.accept(arrmsg);
 
-				if (ChatClient.dataFromServer.equals(null))
-					throw new NullPointerException("This park doesn't exists.");
+                    if (ChatClient.dataFromServer.equals(null))
+                        throw new NullPointerException("This park doesn't exists.");
 
-				updatePark.add(new String(parkName));
-				updatePark.add(new String(ChatClient.dataFromServer.get(0))); // Capacity
-				updatePark.add(new String(ChatClient.dataFromServer.get(1))); // Gap
-				updatePark.add(new String(ChatClient.dataFromServer.get(2))); // Stay time
+                    updatePark.add(new String(parkName));
+                    updatePark.add(new String(ChatClient.dataFromServer.get(0))); // Capacity
+                    updatePark.add(new String(ChatClient.dataFromServer.get(1))); // Gap
+                    updatePark.add(new String(ChatClient.dataFromServer.get(2))); // Stay time
 
-				arrmsg.clear();
-				arrmsg = new ArrayList<Object>();
-				arrmsg.add(new String("ParkCurrentParamsUpdate"));
-				arrmsg.add(new String("ArrayList<String>"));
-				arrmsg.add(updatePark);
-				ClientUI.chat.accept(arrmsg);
+                    arrmsg.clear();
+                    arrmsg = new ArrayList<Object>();
+                    arrmsg.add(new String("ParkCurrentParamsUpdate"));
+                    arrmsg.add(new String("ArrayList<String>"));
+                    arrmsg.add(updatePark);
+                    ClientUI.chat.accept(arrmsg);
 
-				if (ChatClient.result == false)
-					throw new NullPointerException("Update Park info woesn't succesful.");
-				else
-					this.promptTxt.setText("Denied successfully!");
-					maxCapacityTxt.setText("");
-					configureGapTxt.setText("");
-					closesParkTxt.setText("");
-			}
+                    if (ChatClient.result == false)
+                        throw new NullPointerException("Update Park info woesn't succesful.");
+                    else
+                        this.promptTxt.setText("Denied successfully!");
+                        maxCapacityTxt.setText("");
+                        configureGapTxt.setText("");
+                        closesParkTxt.setText("");
+                }
+            }
 
 		} catch (IllegalArgumentException e) {
 			this.promptTxt.setText(e.getMessage());

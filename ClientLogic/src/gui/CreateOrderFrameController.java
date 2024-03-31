@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.DateCell;
 
 
+
 public class CreateOrderFrameController {
 	
 	public static final int GUIDED_GROUP_MAX_VISITORS_NUMBER = 15;
@@ -187,30 +188,17 @@ public class CreateOrderFrameController {
 				visitorsNum = this.txtVisitorsNum.getText();
                 phoneNum = this.txtPhoneNumber.getText();
                 email = this.txtEmail.getText();
-                // Check if the number of visitors and phone number strings contain any digit
-                Pattern pattern = Pattern.compile("\\d+");
-                Matcher matcherVisitorsNum = pattern.matcher(visitorsNum);
-                Matcher matcherPhoneNum = pattern.matcher(phoneNum);
-                boolean visitorsContainsOnlyDigits = matcherVisitorsNum.matches();
-                boolean phoneContainsOnlyDigits = matcherPhoneNum.matches();
+				// Check if the number of visitors and phone number strings contain any digit
+		        Pattern pattern = Pattern.compile("\\d");
+		        Matcher matcherVisitorsNum = pattern.matcher(visitorsNum);
+		        Matcher matcherPhoneNum = pattern.matcher(phoneNum);
+		        if (matcherVisitorsNum.find() && matcherPhoneNum.find())
+		        	System.out.println("String contains numbers.");
+		        else {
+		        	System.out.println("String does not contain numbers.");
+		        	throw new Exception("You have entered wrong format information. Check again.");
+		        }
 
-                if (visitorsContainsOnlyDigits && phoneContainsOnlyDigits)
-                    System.out.println("String contains numbers.");
-                else {
-                    System.out.println("String does not contain numbers.");
-                    throw new Exception("You have entered wrong format information. Check again.");
-                }
-                // Check if email template is valid;
-                Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9+&*-]+(?:\\.[a-zA-Z0-9+&-]+)@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
-                Matcher matcher = emailPattern.matcher(email);
-                boolean isValidEmail = matcher.matches();
-
-                if (isValidEmail)
-                    System.out.println("Please enter a valid email, for example: \"example@example.com\".");
-                else {
-                    System.out.println("String does not contain numbers.");
-                    throw new Exception("Please enter a valid email, for example: \"example@example.com\".");
-                }
 
 				if(Integer.valueOf(visitorsNum) < 1)
 					throw new Exception("The number of visitors should be greater then 0.");
