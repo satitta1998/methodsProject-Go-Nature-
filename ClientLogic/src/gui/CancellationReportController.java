@@ -22,11 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/**
- * Loads the data for generating the cancellation report.
- * 
- * @param dataForReport The data necessary for generating the report, including the park name and date range.
- */
+
 public class CancellationReportController{
     @FXML
     private CategoryAxis X;
@@ -53,6 +49,11 @@ public class CancellationReportController{
     //data report = {0 - parkName\"All parks", 1 - day_from, 2 - month_from, 3 - year_from,
     //								4 - day_to, 5 - month_to, 6 - year_to}
     
+    /**
+     * Loads the data for generating the cancellation report.
+     * 
+     * @param dataForReport The data necessary for generating the report, including the park name and date range.
+     */
     //load report data
     public void loadData(ArrayList<String> dataForReport) {
     	try {

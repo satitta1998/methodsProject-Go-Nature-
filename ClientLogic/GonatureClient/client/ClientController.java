@@ -53,8 +53,9 @@ public class ClientController implements ChatIF
   //Instance methods ************************************************
   
   /**
-   * This method waits for input from the console.  Once it is 
-   * received, it sends it to the client's message handler.
+   * Accepts a message and passes it to the client for further processing.
+   *
+   * @param msg The message to be accepted and processed.
    */
   public void accept(Object msg) 
   {
