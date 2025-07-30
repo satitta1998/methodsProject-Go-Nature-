@@ -3,7 +3,7 @@
  * This class provides methods to switch to different pages based on user actions.
  */
 package entity;
- 
+
 import java.util.ArrayList;
 
 import gui.*;
