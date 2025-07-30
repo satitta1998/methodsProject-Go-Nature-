@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="700.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.VisitingReportController">
+   <children>
+      <ImageView fitHeight="100.0" fitWidth="101.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Pictures/go_Nature_logo-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnBack" layoutX="611.0" layoutY="401.0" mnemonicParsing="false" onAction="#pressBack" prefHeight="27.0" prefWidth="55.0" text="Back" />
+      <Label layoutX="270.0" layoutY="25.0" prefHeight="35.0" prefWidth="163.0" text="Visitng report" textFill="#1e5d38">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Text fx:id="txtError" layoutX="86.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="500.7999633789061">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#1e5d38" layoutX="282.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="Month:" textAlignment="CENTER" wrappingWidth="65.4755859375">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fill="#1e5d38" layoutX="437.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="Year:" textAlignment="CENTER" wrappingWidth="47.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtMonth" layoutX="347.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" textAlignment="CENTER" wrappingWidth="65.4755859375">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtYear" layoutX="484.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" textAlignment="CENTER" wrappingWidth="65.4755859375">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <BarChart fx:id="chart" layoutX="20.0" layoutY="128.0" prefHeight="257.0" prefWidth="659.0">
+         <xAxis>
+            <CategoryAxis fx:id="X" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="Y" label="Visitors" side="LEFT" />
+         </yAxis>
+         <effect>
+            <Lighting diffuseConstant="2.0">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant azimuth="100.0" />
+               </light>
+            </Lighting>
+         </effect>
+      </BarChart>
+      <Text fill="#1e5d38" layoutX="155.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="day:" textAlignment="CENTER" wrappingWidth="37.4755859375">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtDay" layoutX="192.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" textAlignment="CENTER" wrappingWidth="65.4755859375">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
